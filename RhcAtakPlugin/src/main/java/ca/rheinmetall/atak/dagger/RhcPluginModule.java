@@ -27,6 +27,7 @@ import com.atakmap.coremap.maps.coords.GeoPoint;
 import ca.rheinmetall.atak.application.PluginOwner;
 import ca.rheinmetall.atak.thread.MainThreadScheduledExecutorService;
 import ca.rheinmetall.atak.thread.NamedExecutorFactory;
+import ca.rheinmetall.atak.ui.PointOfInterestViewModel;
 import ca.rheinmetall.atak.ui.RhcPluginFragment;
 import ca.rheinmetall.atak.ui.RhcPluginViewModel;
 import dagger.Binds;
@@ -44,6 +45,11 @@ public interface RhcPluginModule
     {
         return new DaggerFragmentFactory<>(provider, RhcPluginFragment.class);
     }
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PointOfInterestViewModel.class)
+    ViewModel bindPointOfInterestViewModel(final PointOfInterestViewModel viewModel);
 
     @Binds
     @Singleton
