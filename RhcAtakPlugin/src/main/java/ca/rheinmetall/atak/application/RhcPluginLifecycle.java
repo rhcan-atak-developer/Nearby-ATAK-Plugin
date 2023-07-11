@@ -8,6 +8,7 @@ import android.content.Context;
 import android.util.Log;
 
 import ca.rheinmetall.atak.dagger.DaggerPluginApplicationComponent;
+import ca.rheinmetall.atak.mapgroup.PointOfInterestMapGroup;
 import ca.rheinmetall.atak.ui.RhcPluginMapComponent;
 import gov.tak.api.plugin.IServiceController;
 
@@ -17,6 +18,9 @@ public class RhcPluginLifecycle extends AbstractPlugin
 
     @Inject
     RhcPluginMapComponent _rhcPluginMapComponent;
+
+    @Inject
+    PointOfInterestMapGroup _pointOfInterestMapGroup;
 
     public RhcPluginLifecycle(final IServiceController serviceController)
     {
