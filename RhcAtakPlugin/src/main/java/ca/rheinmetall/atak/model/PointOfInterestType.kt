@@ -1,0 +1,33 @@
+package ca.rheinmetall.atak.model
+
+enum class PointOfInterestType(val ids: List<Int>, val imageName: String = "bank.png") {
+    AIRPORT(listOf(4581)),
+    BANK(listOf(6000), "bank.png"),
+    BORDER_POST(listOf(9999)),
+    BRIDGE(listOf(19)),
+    BUS_STATION(listOf(4170)),
+    CITY_HALL(listOf(9121)),
+    COMMUNITY_CENTER(listOf(7994)),
+    CONVENTION_CENTER(listOf(7990)),
+    COURT_HOUSE(listOf(9211)),
+    EMBASSY(listOf(9993)),
+    FERRY_TERMINAL(listOf(4482)),
+    FIRE_STATION(listOf(270)),
+    GAS_STATION(listOf(5540)),
+    GOVERNMENT_STRUCTURE(listOf(9525)),
+    HELIPORT(listOf(73)),
+    HOSPITAL(listOf(8060), "hospital.png"),
+    MARINA(listOf(4493)),
+    MEDICAL_SERVICE(listOf(9583)),
+    MILITARY_BASE(listOf(9715)),
+    POLICE_STATION(listOf(9221)),
+    PORT(listOf(280)),
+    POST_OFFICE(listOf(9530)),
+    PRISON(listOf(137)),
+    RAILWAY_STATION(listOf(4013)),
+    SCHOOL(listOf(8211)),
+    STADIUM(listOf(7997)),
+    TRANSPORTATION_SERVICE(listOf(7999, 9593)),
+    TRUCK_STOP(listOf(9522)),
+    VETERINARIAN(listOf(304))
+}

@@ -10,6 +10,6 @@ class PointOfInterestRepository @Inject constructor(){
 
     init {
         //demo
-        pointOfInterests.value = listOf(PointOfInterest(45.72, -73.55, PointOfInterestIcon.BANK))
+        pointOfInterests.value = listOf(PointOfInterest(45.72, -73.55, PointOfInterestType.BANK))
     }
 }

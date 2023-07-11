@@ -5,34 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/plugin_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/default_padding"
-        android:paddingEnd="@dimen/default_padding"
-        android:text="@string/app_desc"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/fontSizeHeading"
-        app:layout_constraintBottom_toTopOf="@id/separator_instruction" />
-
     <View
-        android:id="@+id/separatorTitle"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/border"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@id/plugin_title"
+        android:id="@+id/header_background"
+        style="@style/listHeader"
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/separator_instruction"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/border"
+    <TextView
+        android:id="@+id/title"
+        style="@style/listHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/points_of_interest"
+        app:layout_constraintBottom_toBottomOf="@id/header_background"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/plugin_title" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/selectCategoriesButton"
+        style="@style/darkButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/select_categories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/selectedCategoriesHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:textColor="@color/default_text_color"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectCategoriesButton"
+        tools:text="Police stations, Fire stations" />
+
+    <Button
+        android:id="@+id/search_button"
+        style="@style/darkButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectedCategoriesHint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
