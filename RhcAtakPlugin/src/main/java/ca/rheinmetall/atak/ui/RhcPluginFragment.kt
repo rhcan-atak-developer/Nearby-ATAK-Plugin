@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ca.rheinmetall.atak.PointOfInterestRestClient
 import ca.rheinmetall.atak.RetrofitEventListener
+import ca.rheinmetall.atak.TrafficIncidntRestClient
 import ca.rheinmetall.atak.dagger.PluginContext
 import ca.rheinmetall.atak.dagger.ViewModelFactory
 import ca.rheinmetall.atak.databinding.RhcPluginFragmentBinding
 import ca.rheinmetall.atak.json.PointOfInterestResponse
+import ca.rheinmetall.atak.json.route.TrafficIncidentResponse
 import retrofit2.Call
 import javax.inject.Inject
 
@@ -49,5 +51,18 @@ class RhcPluginFragment @Inject constructor(
                 Log.e("pbolduc", "onError: $call", t)
             }
         })
+
+        TrafficIncidntRestClient.instance.getTrafficIncidentList( object : RetrofitEventListener {
+            override  fun onSuccess(call: Call<*>, response: Any) {
+                if (response is TrafficIncidentResponse) {
+                    response.trafficIncidentResponseData.forEach{it.resources.forEach { Log.d("trafficIncident", it.description?:"") }}
+                }
+            }
+
+            override fun onError(call: Call<*>, t: Throwable) {
+                Log.e("trafficIncident", "onError: $call", t )
+            }
+        })
+
     }
 }

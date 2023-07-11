@@ -9,7 +9,7 @@ import retrofit2.Response
 
 private const val numberOfResults = 25
 
-private const val key = "AqVdzQoQCWuvE8AaBd19rFYuTD7-o-IVJb3EVkn-fX8jDV341L0GCcCln1OgfFWu"
+const val key = "AqVdzQoQCWuvE8AaBd19rFYuTD7-o-IVJb3EVkn-fX8jDV341L0GCcCln1OgfFWu"
 
 class PointOfInterestRestClient {
     companion object {
