@@ -67,8 +67,6 @@ class PointOfInterestRestClient {
             "${viewPort.upperRight.lat},${viewPort.upperLeft.lon},${viewPort.downRight.lat},${viewPort.downRight.lon}))')"
     }
 
-    }
-
     private fun createSpatialFilter(lat: Double, lon: Double, radius: Double): String {
         return "nearby(${lat},${lon},${radius})"
     }
