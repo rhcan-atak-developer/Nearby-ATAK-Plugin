@@ -77,7 +77,7 @@ class TrafficIncidentRestClient  @Inject constructor(@MainExecutor private val e
 
     private fun addTrafficIncident(trafficIncidentResult: TrafficIncidentResult) {
         trafficIncidentResult.point?.coordinates?.let {
-            trafficIncidentRepository.addTrafficIncident(TrafficIncident(it[0], it[1], trafficIncidentResult.description, trafficIncidentResult.incidentId))
+            trafficIncidentRepository.addTrafficIncident(TrafficIncident(it[0], it[1], trafficIncidentResult.title, trafficIncidentResult.incidentId))
         }
     }
 
