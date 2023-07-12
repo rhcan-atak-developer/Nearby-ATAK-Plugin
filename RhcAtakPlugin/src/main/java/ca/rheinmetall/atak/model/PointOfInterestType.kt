@@ -28,7 +28,7 @@ enum class PointOfInterestType(val ids: List<Int>, val stringRes: Int, val image
     PRISON(listOf(137), R.string.prison),
     RAILWAY_STATION(listOf(4013), R.string.railway_station,  "railway_station_png"),
     SCHOOL(listOf(8211), R.string.school, "education.png"),
-    STADIUM(listOf(7997), R.string.stadium, "center.png"),
+    STADIUM(listOf(7997), R.string.stadium, "centre.png"),
     TRANSPORTATION_SERVICE(listOf(7999, 9593), R.string.transportation_service, "transport.png"),
     TRUCK_STOP(listOf(9522), R.string.truck_stop, "parking.png"),
     VETERINARIAN(listOf(304), R.string.veterinarian, "bunny.png")
