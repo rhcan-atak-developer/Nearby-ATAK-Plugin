@@ -30,7 +30,6 @@ class TrafficIncidentRestClient @Inject constructor(
     Observer<MapViewPort>, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var future: ScheduledFuture<*>? = null
-    private var eventListener : RetrofitEventListener? = null
 
     companion object {
         val TAG = "TrafficIncidentRestClient"
@@ -55,9 +54,6 @@ class TrafficIncidentRestClient @Inject constructor(
     private var api: TrafficIncidentApi? = null
 
     private fun getTrafficIncidentList() {
-        if(eventListener == null)
-            return
-
         val retrofit = NetworkClient2.retrofitClient
         api = retrofit.create(TrafficIncidentApi::class.java)
 
@@ -75,13 +71,16 @@ class TrafficIncidentRestClient @Inject constructor(
                 call: Call<TrafficIncidentResponse>,
                 response: Response<TrafficIncidentResponse>
             ) {
-                response.body()?.trafficIncidentResponseData?.forEach{ it -> it.resources.forEach { addTrafficIncident(it) }}
-                if (response.body() != null) {
-                    eventListener?.onSuccess(call, response.body())
+                response.body()?.trafficIncidentResponseData?.forEach{it.resources.forEach { Log.d("trafficIncident", it.description?:"") }}
+                response.body()?.trafficIncidentResponseData?.forEach{ it ->
+                    run {
+                        it.resources.forEach {
+                            addTrafficIncident(it) }
+                    }
                 }
             }
             override fun onFailure(call: Call<TrafficIncidentResponse>, t: Throwable) {
-                eventListener?.onError(call, t)
+                Log.e("TrafficIncidentRestClient", "onError: $call", t )
             }
         })
     }
@@ -90,10 +89,6 @@ class TrafficIncidentRestClient @Inject constructor(
         trafficIncidentResult.point?.coordinates?.let {
             trafficIncidentRepository.addTrafficIncident(TrafficIncident(it[0], it[1], trafficIncidentResult.title, trafficIncidentResult.incidentId))
         }
-    }
-
-    fun retrofitEventListener(retrofitEventListener: RetrofitEventListener) {
-        eventListener = retrofitEventListener;
     }
 
     override fun onChanged(p0: MapViewPort?) {
