@@ -56,4 +56,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selectedCategoriesHint" />
 
+    <Button
+        android:id="@+id/selectIncidentTypeBtn"
+        style="@style/darkButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/select_incident_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_button" />
+
+    <TextView
+        android:id="@+id/selectedIncidentHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:textColor="@color/default_text_color"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectIncidentTypeBtn"
+        tools:text="Accident" />
+
+    <Button
+        android:id="@+id/selectSeverityTypeBtn"
+        style="@style/darkButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/select_severity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectedIncidentHint" />
+
+    <TextView
+        android:id="@+id/selectedSeverityHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:textColor="@color/default_text_color"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectSeverityTypeBtn"
+        tools:text="Serious" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

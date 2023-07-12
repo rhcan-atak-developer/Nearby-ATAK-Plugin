@@ -24,6 +24,8 @@ class TrafficIncidentRestClient  @Inject constructor(@MainExecutor private val e
 
     private var future: ScheduledFuture<*>? = null
     private var eventListener : RetrofitEventListener? = null
+    var selectedSeverity : Severity = Severity.Serious
+    var selectedTrafficIncidentType : TrafficIncidentType = TrafficIncidentType.Accident
 
     companion object {
         val TAG = "TrafficIncidentRestClient"
@@ -54,7 +56,9 @@ class TrafficIncidentRestClient  @Inject constructor(@MainExecutor private val e
 
         val viewPort = mapViewPortDetector._mapViewPortMutableLiveData.value
 
-        val apiCall = api!!.getTrafficIncidentList(viewPort!!.downRight.lat, viewPort.downRight.lon, viewPort.upperLeft.lat,viewPort.upperLeft.lon, key, TrafficIncidentType.Construction.typeCode, Severity.Serious.severityCode,"json")
+        val apiCall = api!!.getTrafficIncidentList(viewPort!!.downRight.lat, viewPort.downRight.lon, viewPort.upperLeft.lat,viewPort.upperLeft.lon, key,
+            selectedTrafficIncidentType.typeCode,
+            selectedSeverity.severityCode,"json")
 
         Log.d(TAG, "request: ${apiCall.request()}")
 

@@ -11,5 +11,17 @@ enum class TrafficIncidentType(val typeCode: Int) {
     RoadHazard(8),
     Construction(9),
     Alert(10),
-    Weather(11)
+    Weather(11);
+
+    companion object{
+        fun fromCode(code: Int): TrafficIncidentType {
+            for (value in TrafficIncidentType.values()) {
+                if (value.typeCode == code) {
+                    return value
+                }
+            }
+            return TrafficIncidentType.Accident
+        }
+    }
+
 }
