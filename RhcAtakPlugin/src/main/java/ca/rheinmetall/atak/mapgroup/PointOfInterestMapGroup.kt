@@ -47,7 +47,7 @@ class PointOfInterestMapGroup @Inject constructor(
     private fun addOrUpdate(poi: PointOfInterest) {
         var childGroup = childGroups.find { it.getMetaString(TYPE_KEY, "") == poi.pointOfInterestIcon.name }
         if (childGroup == null)
-           childGroup = addChildren(poi.pointOfInterestIcon)
+            childGroup = addChildren(poi.pointOfInterestIcon)
         val oldMarker = childGroup.deepFindUID(poi.uuid) as Marker?
         if (oldMarker == null) {
             val position = GeoPoint(poi.lat, poi.lon, 0.0)
@@ -55,7 +55,7 @@ class PointOfInterestMapGroup @Inject constructor(
 
             val marker = Marker(poi.uuid)
             marker.apply {
-                type = icon.get2525cType()
+                type = icon.get2525cType() ?: "a-u-G"
                 if (!FileSystemUtils.isEmpty(icon.iconsetPath))
                     setMetaString("IconsetPath", icon.iconsetPath)
                 title = poi.name ?: poi.pointOfInterestIcon.name
