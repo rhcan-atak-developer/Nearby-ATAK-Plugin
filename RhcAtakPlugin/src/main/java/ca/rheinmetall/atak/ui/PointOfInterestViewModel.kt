@@ -15,22 +15,23 @@ import ca.rheinmetall.atak.json.PointOfInterestResponse
 import ca.rheinmetall.atak.json.PointOfInterestResult
 import ca.rheinmetall.atak.json.SearchResultsRepository
 import ca.rheinmetall.atak.model.PointOfInterest
-import ca.rheinmetall.atak.model.PointOfInterestRepository
 import ca.rheinmetall.atak.model.PointOfInterestType
 import com.atakmap.android.ipc.AtakBroadcast
 import retrofit2.Call
 import javax.inject.Inject
 
 private const val CATEGORIES_PREF_KEY = "ca.rheinmetall.atak.SELECTED_POI_CATEGORIES"
-private const val SEVERITY_PREF_KEY = "ca.rheinmetall.atak.SELECTED_SEVERITY"
-private const val TRAFFIC_INCIDENT_TYPE_PREF_KEY = "ca.rheinmetall.atak.SELECTED_TRAFFIC_INCIDENT_TYPE"
 
 class PointOfInterestViewModel @Inject constructor(
-    private val repository: PointOfInterestRepository,
     @DefaultSharedPreferences private val sharedPreferences: SharedPreferences,
     private val pointOfInterestRestClient: PointOfInterestRestClient,
     private val researchResultsRepository: SearchResultsRepository)
  : ViewModel() {
+    companion object {
+        const val SEVERITY_PREF_KEY = "ca.rheinmetall.atak.SELECTED_SEVERITY"
+        const val TRAFFIC_INCIDENT_TYPE_PREF_KEY = "ca.rheinmetall.atak.SELECTED_TRAFFIC_INCIDENT_TYPE"
+    }
+
     private val _selectedCategories = MutableLiveData<List<PointOfInterestType>>()
     val selectedCategories: LiveData<List<PointOfInterestType>> = _selectedCategories
 
@@ -52,12 +53,12 @@ class PointOfInterestViewModel @Inject constructor(
 
     fun selectSeverity(severity: Severity) {
         _selectedSeverity.value = severity
-        sharedPreferences.edit().putInt(SEVERITY_PREF_KEY, _selectedSeverity.value!!.severityCode)
+        sharedPreferences.edit().putInt(SEVERITY_PREF_KEY, _selectedSeverity.value!!.severityCode).apply()
     }
 
     fun selectTrafficIncident(trafficIncidentType: TrafficIncidentType) {
         _selectedTrafficIncidentType.value = trafficIncidentType
-        sharedPreferences.edit().putInt(TRAFFIC_INCIDENT_TYPE_PREF_KEY, _selectedTrafficIncidentType.value!!.typeCode)
+        sharedPreferences.edit().putInt(TRAFFIC_INCIDENT_TYPE_PREF_KEY, _selectedTrafficIncidentType.value!!.typeCode).apply()
     }
 
     fun searchPointOfInterests() {
