@@ -21,7 +21,7 @@
     <string name="gouvernment_structure">Government Structure</string>
     <string name="heliport">Heliport</string>
     <string name="hospital">Hospital</string>
-    <string name="marina">marina</string>
+    <string name="marina">Marina</string>
     <string name="medical_service">Medical Service</string>
     <string name="military_base">Military Base</string>
     <string name="police_station">Police Station</string>
@@ -33,7 +33,10 @@
     <string name="stadium">Stadium</string>
     <string name="transportation_service">Transportation Service</string>
     <string name="truck_stop">Truck Stop</string>
-    <string name="veterinarian">Veteninarian</string>
+    <string name="veterinarian">Veterinarian</string>
     <string name="ok">OK</string>
     <string name="no_categories_selected">No categories selected</string>
+    <string name="search_results_title">Search Results</string>
+    <string name="add_all">Add All</string>
+    <string name="add_selected">Add Selected</string>
 </resources>

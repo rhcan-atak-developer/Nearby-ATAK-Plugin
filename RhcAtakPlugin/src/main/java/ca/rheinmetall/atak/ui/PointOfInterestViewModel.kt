@@ -7,12 +7,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ca.rheinmetall.atak.PointOfInterestRestClient
 import ca.rheinmetall.atak.RetrofitEventListener
+import ca.rheinmetall.atak.application.RhcPluginBroadcastEnum
 import ca.rheinmetall.atak.dagger.DefaultSharedPreferences
 import ca.rheinmetall.atak.json.PointOfInterestResponse
 import ca.rheinmetall.atak.json.PointOfInterestResult
+import ca.rheinmetall.atak.json.SearchResultsRepository
 import ca.rheinmetall.atak.model.PointOfInterest
 import ca.rheinmetall.atak.model.PointOfInterestRepository
 import ca.rheinmetall.atak.model.PointOfInterestType
+import com.atakmap.android.ipc.AtakBroadcast
 import retrofit2.Call
 import javax.inject.Inject
 
@@ -21,7 +24,8 @@ private const val CATEGORIES_PREF_KEY = "ca.rheinmetall.atak.SELECTED_POI_CATEGO
 class PointOfInterestViewModel @Inject constructor(
     private val repository: PointOfInterestRepository,
     @DefaultSharedPreferences private val sharedPreferences: SharedPreferences,
-    private val pointOfInterestRestClient: PointOfInterestRestClient)
+    private val pointOfInterestRestClient: PointOfInterestRestClient,
+    private val researchResultsRepository: SearchResultsRepository)
  : ViewModel() {
     private val _selectedCategories = MutableLiveData<List<PointOfInterestType>>()
     val selectedCategories: LiveData<List<PointOfInterestType>> = _selectedCategories
@@ -40,7 +44,8 @@ class PointOfInterestViewModel @Inject constructor(
             pointOfInterestRestClient.getPointOfInterests(it, object : RetrofitEventListener {
                 override fun onSuccess(call: Call<*>, response: Any) {
                     if (response is PointOfInterestResponse) {
-                        repository.addPointOfInterests(response.pointOfInterestResponseData?.results?.mapNotNull { it.toPointOfInterestModel() } ?: emptyList())
+                        researchResultsRepository.setResults(response.pointOfInterestResponseData?.results ?: emptyList())
+                        AtakBroadcast.getInstance().sendBroadcast(RhcPluginBroadcastEnum.SHOW_SEARCH_RESULTS.createIntent())
                     }
                 }
 

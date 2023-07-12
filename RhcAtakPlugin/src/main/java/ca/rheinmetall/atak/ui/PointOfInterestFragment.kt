@@ -58,7 +58,7 @@ class PointOfInterestFragment @Inject constructor(
             .show()
     }
 
-    internal fun callTrafficAPI() {
+    private fun callTrafficAPI() {
         trafficIncidentRestClient.retrofitEventListener( object : RetrofitEventListener {
             override  fun onSuccess(call: Call<*>, response: Any) {
                 if (response is TrafficIncidentResponse) {
