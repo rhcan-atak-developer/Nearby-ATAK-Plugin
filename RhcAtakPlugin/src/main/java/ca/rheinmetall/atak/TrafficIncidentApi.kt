@@ -14,8 +14,8 @@ interface TrafficIncidentApi {
         @Path("northLatitude") northLatitude: Double,
         @Path("eastLongitude") eastLongitude: Double,
         @Query("key", encoded = true) key: String,
-        @Query("type", encoded = true) typeCode: Int,
-        @Query("severity") severityCode: Int,
+        @Query("type", encoded = true) typeCode: Int?,
+        @Query("severity") severityCode: Int?,
         @Query("\$format", encoded = true) format: String
     ): Call<TrafficIncidentResponse>
 }

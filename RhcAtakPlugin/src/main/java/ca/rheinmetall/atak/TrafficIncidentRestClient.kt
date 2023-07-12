@@ -62,9 +62,11 @@ class TrafficIncidentRestClient @Inject constructor(
 
         val viewPort = mapViewPortDetector._mapViewPortMutableLiveData.value
         val apiKey = sharedPreferences.getStringPreference(PreferenceEnum.API_KEY)
+        val severity = sharedPreferences.getInt(IncidentsViewModel.SEVERITY_PREF_KEY, Severity.Serious.severityCode)
+        var type = sharedPreferences.getInt(IncidentsViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY, TrafficIncidentType.Accident.typeCode)
         val apiCall = api!!.getTrafficIncidentList(viewPort!!.downRight.lat, viewPort.downRight.lon, viewPort.upperLeft.lat,viewPort.upperLeft.lon, apiKey,
-            sharedPreferences.getInt(IncidentsViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY, TrafficIncidentType.Accident.typeCode),
-            sharedPreferences.getInt(IncidentsViewModel.SEVERITY_PREF_KEY, Severity.Serious.severityCode),"json")
+            if (type == TrafficIncidentType.All.typeCode) null else type,
+            if (severity == Severity.All.severityCode) null else severity,"json")
 
         Log.d(TAG, "request: ${apiCall.request()}")
 

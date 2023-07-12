@@ -1,6 +1,7 @@
 package ca.rheinmetall.atak
 
 enum class TrafficIncidentType(val typeCode: Int, val imageName: String = "traffic_jam.png", val isHidden : Boolean = false) {
+    All(0),
     Accident(1, "traffic_jam.png"),
     Congestion(2, "traffic_jam.png"),
     DisabledVehicle(3, "towing.png"),

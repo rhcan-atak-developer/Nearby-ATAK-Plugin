@@ -38,7 +38,7 @@ class IncidentsViewModel @Inject constructor(
         )
     }
 
-    fun selectSeverity(severity: Severity) {
+    fun selectSeverity(severity: Severity?) {
         _selectedSeverity.value = severity
         sharedPreferences.edit().putInt(SEVERITY_PREF_KEY, _selectedSeverity.value!!.severityCode).apply()
     }

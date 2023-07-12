@@ -1,6 +1,7 @@
 package ca.rheinmetall.atak
 
 enum class Severity(val severityCode: Int) {
+    All(0),
     LowImpact(1),
     Minor(2),
     Moderate(3),
