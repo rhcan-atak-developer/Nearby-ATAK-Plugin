@@ -43,4 +43,7 @@
     <string name="select_severity">Select Severity</string>
     <string name="add_selected">Add Selected</string>
     <string name="unselect">Clear Selection</string>
+    <string name="viewport">Viewport</string>
+    <string name="self">Self</string>
+    <string name="search_options">Search Options:</string>
 </resources>

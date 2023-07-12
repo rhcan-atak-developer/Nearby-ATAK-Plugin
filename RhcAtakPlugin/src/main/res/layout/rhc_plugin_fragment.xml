@@ -46,6 +46,36 @@
         app:layout_constraintTop_toBottomOf="@id/selectCategoriesButton"
         tools:text="Police stations, Fire stations" />
 
+    <TextView
+        android:id="@+id/search_type_label"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:text="@string/search_options"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectedCategoriesHint"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="@string/viewport"
+        android:id="@+id/viewport_radio_button"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_type_label"
+        />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="@string/self"
+        android:id="@+id/self_radio_button"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewport_radio_button"
+        />
+
     <Button
         android:id="@+id/search_button"
         style="@style/darkButton"
@@ -54,6 +84,6 @@
         android:layout_marginTop="8dp"
         android:text="@string/search"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectedCategoriesHint" />
+        app:layout_constraintTop_toBottomOf="@id/self_radio_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

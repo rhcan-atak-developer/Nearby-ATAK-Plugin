@@ -21,6 +21,7 @@ import retrofit2.Call
 import javax.inject.Inject
 
 private const val CATEGORIES_PREF_KEY = "ca.rheinmetall.atak.SELECTED_POI_CATEGORIES"
+private const val SEARCH_OPTION_KEY = "ca.rheinmetall.atak.SEARCH_OPTION_KEY"
 
 class PointOfInterestViewModel @Inject constructor(
     @DefaultSharedPreferences private val sharedPreferences: SharedPreferences,
@@ -31,8 +32,12 @@ class PointOfInterestViewModel @Inject constructor(
     private val _selectedCategories = MutableLiveData<List<PointOfInterestType>>()
     val selectedCategories: LiveData<List<PointOfInterestType>> = _selectedCategories
 
+    private val _selectedOption = MutableLiveData<SearchType>()
+    val selectedOption: LiveData<SearchType> = _selectedOption
+
     init {
         _selectedCategories.value = sharedPreferences.getStringSet(CATEGORIES_PREF_KEY, emptySet())!!.map { PointOfInterestType.valueOf(it) }
+        _selectedOption.value = SearchType.valueOf(sharedPreferences.getString(SEARCH_OPTION_KEY, SearchType.VIEWPORT.name)!!)
     }
 
     fun selectCategories(categoriesSelectionState: List<Pair<Boolean, PointOfInterestType>>) {
@@ -42,7 +47,7 @@ class PointOfInterestViewModel @Inject constructor(
 
     fun searchPointOfInterests() {
         _selectedCategories.value?.let {
-            pointOfInterestRestClient.getPointOfInterests(it, true, object : RetrofitEventListener {
+            pointOfInterestRestClient.getPointOfInterests(it, _selectedOption.value == SearchType.VIEWPORT, object : RetrofitEventListener {
                 override fun onSuccess(call: Call<*>, response: Any) {
                     if (response is PointOfInterestResponse) {
                         researchResultsRepository.setResults(response.pointOfInterestResponseData?.results ?: emptyList())
@@ -55,6 +60,20 @@ class PointOfInterestViewModel @Inject constructor(
                 }
             })
         } ?: Log.d("PointOfInterestViewModel", "No selected categories, no request made to bing service")
+    }
+
+    fun selectSelfOption() {
+        _selectedOption.value = SearchType.SELF
+        saveSearchOption()
+    }
+
+    fun selectViewportOption() {
+        _selectedOption.value = SearchType.VIEWPORT
+        saveSearchOption()
+    }
+
+    private fun saveSearchOption() {
+        sharedPreferences.edit().putString(SEARCH_OPTION_KEY, _selectedOption.value!!.name).apply()
     }
 }
 

@@ -41,6 +41,14 @@ class PointOfInterestFragment @Inject constructor(
         viewModel.selectedCategories.observe(viewLifecycleOwner) { onSelectedCategoriesChanged(it)}
 
         binding.searchButton.setOnClickListener { viewModel.searchPointOfInterests() }
+        viewModel.selectedOption.observe(viewLifecycleOwner) { onSelectedOptionChanged(it)}
+        binding.selfRadioButton.setOnClickListener() { viewModel.selectSelfOption() }
+        binding.viewportRadioButton.setOnClickListener() { viewModel.selectViewportOption() }
+    }
+
+    private fun onSelectedOptionChanged(type: SearchType?) {
+        binding.selfRadioButton.isChecked = type == SearchType.SELF
+        binding.viewportRadioButton.isChecked = type == SearchType.VIEWPORT
     }
 
     private fun onSelectedCategoriesChanged(selectedCategories: List<PointOfInterestType>) {
