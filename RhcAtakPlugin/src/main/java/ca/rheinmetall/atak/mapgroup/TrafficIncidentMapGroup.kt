@@ -11,8 +11,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 
-private const val INCIDENT_ICON = "traffic_jam.png"
-
 @Singleton
 class TrafficIncidentMapGroup @Inject constructor(
     trafficIncidentRepository: TrafficIncidentRepository,
@@ -27,6 +25,7 @@ class TrafficIncidentMapGroup @Inject constructor(
         setMetaString("menu_factory_class", "TrafficIncident")
         addOnItemListChangedListener(this)
         trafficIncidentRepository.trafficIncidents.observe(pluginOwner) {
+            clearItems()
             it.forEach { incident -> addIncident(incident) }
         }
     }
@@ -35,7 +34,7 @@ class TrafficIncidentMapGroup @Inject constructor(
         if (!currents.contains(trafficIncident.uuid)) {
             currents[trafficIncident.uuid] = trafficIncident
             val position = GeoPoint(trafficIncident.lat, trafficIncident.lon, 0.0)
-            val icon = iconset.getIcon(INCIDENT_ICON)
+            val icon = iconset.getIcon(trafficIncident.type.imageName)
 
             val marker = Marker(trafficIncident.uuid)
             marker.apply {
@@ -53,7 +52,7 @@ class TrafficIncidentMapGroup @Inject constructor(
             markers[trafficIncident.uuid] = marker
         } else {
             currents[trafficIncident.uuid] = trafficIncident
-            val icon = iconset.getIcon(INCIDENT_ICON)
+            val icon = iconset.getIcon(trafficIncident.type.imageName)
             markers[trafficIncident.uuid]?.apply {
                 point = trafficIncident.point
                 type = icon.get2525cType()
