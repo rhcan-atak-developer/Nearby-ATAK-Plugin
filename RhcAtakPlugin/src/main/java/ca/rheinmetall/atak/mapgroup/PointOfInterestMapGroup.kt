@@ -62,6 +62,7 @@ class PointOfInterestMapGroup @Inject constructor(
                 movable = false
                 editable = false
                 point = position
+                setMetaBoolean(POI_KEY, true)
             }
 
             childGroup.addItem(marker)

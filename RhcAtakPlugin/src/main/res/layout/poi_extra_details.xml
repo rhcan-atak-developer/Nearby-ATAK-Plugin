@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText" >
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="Name"
+        android:textColor="@color/heading_yellow"
+        android:textSize="@dimen/info_view_header_text_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/name_value"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/info_view_value_text_size"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Person"/>
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="Address"
+        android:textColor="@color/heading_yellow"
+        android:textSize="@dimen/info_view_header_text_size"
+        app:layout_constraintTop_toBottomOf="@id/name_value"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/address_value"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/info_view_value_text_size"
+        app:layout_constraintTop_toBottomOf="@id/address"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="123 momo Str"/>
+
+
+    <TextView
+        android:id="@+id/locality"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="Locality"
+        android:textColor="@color/heading_yellow"
+        android:textSize="@dimen/info_view_header_text_size"
+        app:layout_constraintTop_toBottomOf="@id/address_value"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/locality_value"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/info_view_value_text_size"
+        app:layout_constraintTop_toBottomOf="@id/locality"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Washington"/>
+
+
+    <TextView
+        android:id="@+id/postal_code"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="Postal Code"
+        android:textColor="@color/heading_yellow"
+        android:textSize="@dimen/info_view_header_text_size"
+        app:layout_constraintTop_toBottomOf="@id/locality_value"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/postal_code_value"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/info_view_value_text_size"
+        app:layout_constraintTop_toBottomOf="@id/postal_code"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="J3A 5B2"/>
+
+    <TextView
+        android:id="@+id/country_region"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="Country"
+        android:textColor="@color/heading_yellow"
+        android:textSize="@dimen/info_view_header_text_size"
+        app:layout_constraintTop_toBottomOf="@id/postal_code_value"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/country_region_value"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/info_view_value_text_size"
+        app:layout_constraintTop_toBottomOf="@id/country_region"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="QC"/>
+
+
+    <TextView
+        android:id="@+id/phone"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="Phone"
+        android:textColor="@color/heading_yellow"
+        android:textSize="@dimen/info_view_header_text_size"
+        app:layout_constraintTop_toBottomOf="@id/country_region_value"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/phone_value"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/info_view_value_text_size"
+        app:layout_constraintTop_toBottomOf="@id/phone"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="555-555-5555"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

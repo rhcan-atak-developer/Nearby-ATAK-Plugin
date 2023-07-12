@@ -30,4 +30,7 @@
     <dimen name="pointer_halo_radius">18dp</dimen>
     <dimen name="pointer_radius">14dp</dimen>
     <dimen name="rename_entity_padding">10dp</dimen>
+
+    <dimen name="info_view_value_text_size">15sp</dimen>
+    <dimen name="info_view_header_text_size">10sp</dimen>
 </resources>
