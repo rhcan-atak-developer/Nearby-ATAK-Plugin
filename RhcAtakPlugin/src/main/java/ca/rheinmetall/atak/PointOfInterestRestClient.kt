@@ -28,11 +28,13 @@ class PointOfInterestRestClient @Inject constructor(private val mapView: MapView
     lateinit var viewPort: MapViewPort
     private var api: PointOfInterestApi? = null
 
-    fun getPointOfInterests(categories: List<PointOfInterestType>, retrofitEventListener: RetrofitEventListener) {
+    fun getPointOfInterests(categories: List<PointOfInterestType>, useBoundingBox : Boolean, retrofitEventListener: RetrofitEventListener) {
         val retrofit = NetworkClient.retrofitClient
         api = retrofit.create(PointOfInterestApi::class.java)
 
-        val spatialFilter = createSpatialFilter(mapView.selfMarker.point.latitude, mapView.selfMarker.point.longitude, 5.0)
+        val spatialFilter = if(useBoundingBox)
+            createSpatialFilterWithBBox() else
+            createSpatialFilter(mapView.selfMarker.point.latitude, mapView.selfMarker.point.longitude, 5.0)
         val filter = createFilter(categories.flatMap { it.ids })
         val apiCall = api!!.getPointOfInterestList(spatialFilter, filter, numberOfResults, createSelect(), key, "json")
 
@@ -76,9 +78,8 @@ class PointOfInterestRestClient @Inject constructor(private val mapView: MapView
         return types.joinToString(separator = "%20Or%20") { "EntityTypeID%20eq%20\'${it}\'" }
     }
 
-    fun createSpatialFilterWithIntersection(): String {
-        return "intersects('POLYGON((${viewPort.upperLeft.lat},${viewPort.upperLeft.lon},${viewPort.downLeft.lat},${viewPort.downLeft.lon}," +
-            "${viewPort.upperRight.lat},${viewPort.upperLeft.lon},${viewPort.downRight.lat},${viewPort.downRight.lon}))')"
+    private fun createSpatialFilterWithBBox(): String {
+        return "bbox(${viewPort.downRight.lat},${viewPort.downRight.lon},${viewPort.upperLeft.lat},${viewPort.upperLeft.lon})"
     }
 
     private fun createSpatialFilter(lat: Double, lon: Double, radius: Double): String {
