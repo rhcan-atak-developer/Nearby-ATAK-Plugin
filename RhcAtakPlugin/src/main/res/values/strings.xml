@@ -46,5 +46,5 @@
     <string name="viewport">Viewport</string>
     <string name="self">Self</string>
     <string name="search_options">Search Options:</string>
-    <string name="key">Key</string>
+    <string name="key">API Key</string>
 </resources>

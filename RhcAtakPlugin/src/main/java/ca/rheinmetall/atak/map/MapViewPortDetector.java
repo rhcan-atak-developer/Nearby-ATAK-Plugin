@@ -15,9 +15,10 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import ca.rheinmetall.atak.PointOfInterestRestClient;
+import ca.rheinmetall.atak.lifecycle.PluginLifeCycled;
 
 @Singleton
-public class MapViewPortDetector implements MapEventDispatcher.MapEventDispatchListener, AtakMapView.OnMapProjectionChangedListener, AtakMapView.OnMapViewResizedListener {
+public class MapViewPortDetector extends PluginLifeCycled implements MapEventDispatcher.MapEventDispatchListener, AtakMapView.OnMapProjectionChangedListener, AtakMapView.OnMapViewResizedListener {
     public final MutableLiveData<MapViewPort> _mapViewPortMutableLiveData = new MutableLiveData<>(null);
     private final MapView _mapView;
     private final PointOfInterestRestClient _pointOfInterestRestClient;
@@ -35,12 +36,14 @@ public class MapViewPortDetector implements MapEventDispatcher.MapEventDispatchL
         return _mapViewPortMutableLiveData;
     }
 
+    @Override
     public void start() {
         _mapView.getMapEventDispatcher().addMapEventListener(this);
         _mapView.addOnMapProjectionChangedListener(this);
         _mapView.addOnMapViewResizedListener(this);
     }
 
+    @Override
     public void stop() {
         _mapView.getMapEventDispatcher().removeMapEventListener(this);
         _mapView.removeOnMapProjectionChangedListener(this);
@@ -72,7 +75,7 @@ public class MapViewPortDetector implements MapEventDispatcher.MapEventDispatchL
             new Point(bounds.getNorth(), bounds.getEast()),
             new Point(bounds.getSouth(), bounds.getEast()));
         _mapViewPortMutableLiveData.setValue(mapViewPort);
-        Log.d("KEK", mapViewPort.toString());
+        Log.d("MapViewPortDetector", mapViewPort.toString());
 
         _pointOfInterestRestClient.setViewPort(mapViewPort);
     }

@@ -7,6 +7,7 @@ import ca.rheinmetall.atak.dagger.DefaultSharedPreferences
 import ca.rheinmetall.atak.dagger.MainExecutor
 import ca.rheinmetall.atak.json.route.TrafficIncidentResponse
 import ca.rheinmetall.atak.json.route.TrafficIncidentResult
+import ca.rheinmetall.atak.lifecycle.PluginLifeCycled
 import ca.rheinmetall.atak.map.MapViewPort
 import ca.rheinmetall.atak.map.MapViewPortDetector
 import ca.rheinmetall.atak.model.route.TrafficIncident
@@ -28,7 +29,7 @@ class TrafficIncidentRestClient @Inject constructor(
     @MainExecutor private val executor: ScheduledExecutorService,
     @DefaultSharedPreferences private val sharedPreferences: SharedPreferences,
     private val mapViewPortDetector: MapViewPortDetector,
-    private val trafficIncidentRepository: TrafficIncidentRepository) :
+    private val trafficIncidentRepository: TrafficIncidentRepository) : PluginLifeCycled(),
     Observer<MapViewPort>, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var future: ScheduledFuture<*>? = null
@@ -37,7 +38,7 @@ class TrafficIncidentRestClient @Inject constructor(
         val TAG = "TrafficIncidentRestClient"
     }
 
-    fun start()
+    override fun start()
     {
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         future =
@@ -45,7 +46,7 @@ class TrafficIncidentRestClient @Inject constructor(
         mapViewPortDetector._mapViewPortMutableLiveData.observeForever(this)
     }
 
-    fun stop()
+    override fun stop()
     {
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
         mapViewPortDetector._mapViewPortMutableLiveData.removeObserver(this)

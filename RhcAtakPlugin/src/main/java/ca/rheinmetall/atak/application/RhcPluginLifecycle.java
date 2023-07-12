@@ -13,8 +13,6 @@ import androidx.core.content.ContextCompat;
 import ca.rheinmetall.atak.R;
 import ca.rheinmetall.atak.TrafficIncidentRestClient;
 import ca.rheinmetall.atak.dagger.DaggerPluginApplicationComponent;
-import ca.rheinmetall.atak.map.MapViewPortDetector;
-import ca.rheinmetall.atak.mapgroup.PointOfInterestMapGroup;
 import ca.rheinmetall.atak.preference.PreferenceFragment;
 import ca.rheinmetall.atak.ui.RhcPluginMapComponent;
 import gov.tak.api.plugin.IServiceController;
@@ -27,16 +25,10 @@ public class RhcPluginLifecycle extends AbstractPlugin
     RhcPluginMapComponent _rhcPluginMapComponent;
 
     @Inject
-    PointOfInterestMapGroup _pointOfInterestMapGroup;
-
-    @Inject
-    MapViewPortDetector _mapViewPortDetector;
+    PreferenceFragment _preferenceFragment;
 
     @Inject
     TrafficIncidentRestClient _trafficIncidentRestClient;
-
-    @Inject
-    PreferenceFragment _preferenceFragment;
 
     public RhcPluginLifecycle(final IServiceController serviceController)
     {
@@ -68,19 +60,9 @@ public class RhcPluginLifecycle extends AbstractPlugin
     }
 
     @Override
-    public void onStart()
-    {
-        super.onStart();
-        _mapViewPortDetector.start();
-        _trafficIncidentRestClient.start();
-    }
-
-    @Override
     public void onStop()
     {
         super.onStop();
-        _mapViewPortDetector.stop();
-        _trafficIncidentRestClient.stop();
         ToolsPreferenceFragment.unregister("rhc_app");
     }
 }
