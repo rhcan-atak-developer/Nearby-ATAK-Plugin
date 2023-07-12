@@ -47,6 +47,7 @@ class TrafficIncidentMapGroup @Inject constructor(
                 editable = false
                 point = position
             }
+            marker.setMetaBoolean("neverCot", true)
 
             addItem(marker)
             markers[trafficIncident.uuid] = marker
