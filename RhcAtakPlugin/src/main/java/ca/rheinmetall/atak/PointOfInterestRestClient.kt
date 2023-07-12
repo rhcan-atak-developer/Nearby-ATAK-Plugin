@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledExecutorService
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val numberOfResults = 25
+private const val numberOfResults = 100
 
 const val key = "AqVdzQoQCWuvE8AaBd19rFYuTD7-o-IVJb3EVkn-fX8jDV341L0GCcCln1OgfFWu"
 
