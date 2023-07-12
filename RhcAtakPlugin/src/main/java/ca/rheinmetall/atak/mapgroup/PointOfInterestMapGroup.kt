@@ -8,7 +8,6 @@ import com.atakmap.android.maps.MapView
 import com.atakmap.android.maps.Marker
 import com.atakmap.android.user.PlacePointTool.MarkerCreator
 import com.atakmap.coremap.maps.coords.GeoPoint
-import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,8 +17,8 @@ class PointOfInterestMapGroup @Inject constructor(
     pointOfInterestRepository: PointOfInterestRepository,
     pluginOwner: PluginOwner,
 ) {
-    private val currents = HashMap<UUID, PointOfInterest>()
-    private val markers = HashMap<UUID, Marker>()
+    private val currents = HashMap<String, PointOfInterest>()
+    private val markers = HashMap<String, Marker>()
     private val userIconDatabase = UserIconDatabase.instance(MapView._mapView.context)
     private val iconset =
         userIconDatabase.getIconSet("6d781afb-89a6-4c07-b2b9-a89748b6a38f", true, true)
@@ -38,11 +37,11 @@ class PointOfInterestMapGroup @Inject constructor(
 
             val type: String? = icon.get2525cType()
             val marker: MarkerCreator = MarkerCreator(point)
-                .setUid(poi.uuid.toString())
+                .setUid(poi.uuid)
                 .setType(type)
                 .setIconPath(icon.iconsetPath)
                 .showCotDetails(false)
-                .setCallsign(poi.pointOfInterestIcon.name)
+                .setCallsign(poi.name ?: poi.pointOfInterestIcon.name)
 
             markers[poi.uuid] = marker.placePoint()
 

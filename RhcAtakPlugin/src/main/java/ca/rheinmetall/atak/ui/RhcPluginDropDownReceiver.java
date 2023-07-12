@@ -16,7 +16,7 @@ import ca.rheinmetall.atak.dagger.FragmentFactory;
 public class RhcPluginDropDownReceiver extends DropDownReceiver
 {
     private final FragmentFactory _fragmentFactory;
-    private RhcPluginFragment _fragment;
+    private PointOfInterestFragment _fragment;
 
     @Inject
     public RhcPluginDropDownReceiver(final MapView mapView, final FragmentFactory fragmentFactory)
@@ -31,7 +31,7 @@ public class RhcPluginDropDownReceiver extends DropDownReceiver
     {
         if(RhcPluginBroadcastEnum.SHOW_RHC_PLUGIN.getAction().equals(intent.getAction()))
         {
-            _fragment = _fragmentFactory.instantiate(RhcPluginFragment.class);
+            _fragment = _fragmentFactory.instantiate(PointOfInterestFragment.class);
             showDropDown(_fragment, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH, HALF_HEIGHT);
         }
     }

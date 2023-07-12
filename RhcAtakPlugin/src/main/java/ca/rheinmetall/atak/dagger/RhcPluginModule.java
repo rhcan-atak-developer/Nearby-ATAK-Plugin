@@ -28,7 +28,7 @@ import ca.rheinmetall.atak.application.PluginOwner;
 import ca.rheinmetall.atak.thread.MainThreadScheduledExecutorService;
 import ca.rheinmetall.atak.thread.NamedExecutorFactory;
 import ca.rheinmetall.atak.ui.PointOfInterestViewModel;
-import ca.rheinmetall.atak.ui.RhcPluginFragment;
+import ca.rheinmetall.atak.ui.PointOfInterestFragment;
 import ca.rheinmetall.atak.ui.RhcPluginViewModel;
 import dagger.Binds;
 import dagger.Module;
@@ -40,10 +40,10 @@ public interface RhcPluginModule
 {
     @Provides
     @IntoMap
-    @FragmentFactoryKey(RhcPluginFragment.class)
-    static androidx.fragment.app.FragmentFactory bindIssPluginTesterFragment(final Provider<RhcPluginFragment> provider)
+    @FragmentFactoryKey(PointOfInterestFragment.class)
+    static androidx.fragment.app.FragmentFactory bindIssPluginTesterFragment(final Provider<PointOfInterestFragment> provider)
     {
-        return new DaggerFragmentFactory<>(provider, RhcPluginFragment.class);
+        return new DaggerFragmentFactory<>(provider, PointOfInterestFragment.class);
     }
 
     @Binds

@@ -2,6 +2,7 @@ package ca.rheinmetall.atak
 
 import android.util.Log
 import ca.rheinmetall.atak.json.PointOfInterestResponse
+import ca.rheinmetall.atak.model.PointOfInterestType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,12 +19,12 @@ class PointOfInterestRestClient {
 
     private var api: PointOfInterestApi? = null
 
-    fun getUserList(retrofitEventListener: RetrofitEventListener) {
+    fun getPointOfInterests(categories: List<PointOfInterestType>, retrofitEventListener: RetrofitEventListener) {
         val retrofit = NetworkClient.retrofitClient
         api = retrofit.create(PointOfInterestApi::class.java)
 
         val spatialFilter = createSpatialFilter(38.88494, -76.99596, 5.0)
-        val filter = createFilter(6000)
+        val filter = createFilter(categories.flatMap { it.ids })
         val apiCall = api!!.getPointOfInterestList(spatialFilter, filter, numberOfResults, createSelect(), key, "json")
 
         Log.d("pbolduc", "request: ${apiCall.request()}")
@@ -54,8 +55,8 @@ class PointOfInterestRestClient {
         return "EntityID,DisplayName,Latitude,Longitude,__Distance"
     }
 
-    private fun createFilter(type: Int): String {
-        return "EntityTypeID%20eq%20\'${type}\'"
+    private fun createFilter(types: List<Int>): String {
+        return types.joinToString(separator = "%20Or%20") { "EntityTypeID%20eq%20\'${it}\'" }
     }
 
     private fun createSpatialFilter(lat: Double, lon: Double, radius: Double): String {
