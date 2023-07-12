@@ -4,7 +4,11 @@ import ca.rheinmetall.atak.application.PluginOwner
 import ca.rheinmetall.atak.model.route.TrafficIncident
 import ca.rheinmetall.atak.model.route.TrafficIncidentRepository
 import com.atakmap.android.icons.UserIconDatabase
-import com.atakmap.android.maps.*
+import com.atakmap.android.maps.DefaultMapGroup
+import com.atakmap.android.maps.MapGroup
+import com.atakmap.android.maps.MapItem
+import com.atakmap.android.maps.MapView
+import com.atakmap.android.maps.Marker
 import com.atakmap.coremap.filesystem.FileSystemUtils
 import com.atakmap.coremap.maps.coords.GeoPoint
 import javax.inject.Inject
@@ -40,7 +44,7 @@ class TrafficIncidentMapGroup @Inject constructor(
 
             val marker = Marker(trafficIncident.uuid)
             marker.apply {
-                type = icon.get2525cType()
+                type = icon.get2525cType() ?: "a-u-G"
                 if (!FileSystemUtils.isEmpty(icon.iconsetPath))
                     setMetaString("IconsetPath", icon.iconsetPath)
                 title = trafficIncident.description ?: "incident ${trafficIncident.uuid}"
@@ -57,7 +61,7 @@ class TrafficIncidentMapGroup @Inject constructor(
             val icon = iconset.getIcon(trafficIncident.type.imageName)
             markers[trafficIncident.uuid]?.apply {
                 point = trafficIncident.point
-                type = icon.get2525cType()
+                type = icon.get2525cType() ?: "a-u-G"
                 title = trafficIncident.description ?: "incident ${trafficIncident.uuid}"
             }
 
