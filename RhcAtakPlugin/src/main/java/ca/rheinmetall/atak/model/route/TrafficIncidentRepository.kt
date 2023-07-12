@@ -25,6 +25,11 @@ class TrafficIncidentRepository @Inject constructor(private val mapView: MapView
     override fun stop() {
         mapView.mapEventDispatcher.removeMapEventListener(this)
     }
+    
+    fun clearTrafficIncidents() {
+        _trafficIncidents.clear()
+    }
+
     val trafficIncidents: MutableLiveData<List<TrafficIncident>> = MutableLiveData(ArrayList())
 
     override fun onMapEvent(mapEvent: MapEvent?) {

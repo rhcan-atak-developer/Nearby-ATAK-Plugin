@@ -26,6 +26,8 @@ class TrafficIncidentMapGroup @Inject constructor(
         addOnItemListChangedListener(this)
         trafficIncidentRepository.trafficIncidents.observe(pluginOwner) {
             clearItems()
+            currents.clear()
+            markers.clear()
             it.forEach { incident -> addIncident(incident) }
         }
     }
