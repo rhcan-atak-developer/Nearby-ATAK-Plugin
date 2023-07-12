@@ -13,9 +13,4 @@ class PointOfInterestRepository @Inject constructor(){
     }
 
     val pointOfInterests: MutableLiveData<List<PointOfInterest>> = MutableLiveData(ArrayList())
-
-    init {
-        //demo
-        pointOfInterests.value = listOf(PointOfInterest(45.72, -73.55, PointOfInterestType.BANK))
-    }
 }

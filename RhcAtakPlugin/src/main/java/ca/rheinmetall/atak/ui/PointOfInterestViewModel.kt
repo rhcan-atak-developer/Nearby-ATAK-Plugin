@@ -52,6 +52,6 @@ class PointOfInterestViewModel @Inject constructor(
 }
 
 private fun PointOfInterestResult.toPointOfInterestModel(): PointOfInterest? {
-    val type = PointOfInterestType.values().filter { it.ids.contains(this.entityTypeID) }.firstOrNull()
+    val type = PointOfInterestType.values().firstOrNull { it.ids.contains(this.entityTypeID) }
     return type?.let { PointOfInterest(this.latitude!!, this.longitude!!, it, this.entityID!!, this.displayName) }
 }
