@@ -50,31 +50,79 @@
         android:id="@+id/search_type_label"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
-        android:textSize="13sp"
         android:gravity="center"
         android:text="@string/search_options"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectedCategoriesHint"/>
+        app:layout_constraintTop_toBottomOf="@id/selectedCategoriesHint" />
 
     <RadioButton
+        android:id="@+id/viewport_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:text="@string/viewport"
-        android:id="@+id/viewport_radio_button"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_type_label"
-        />
+        app:layout_constraintTop_toBottomOf="@id/search_type_label" />
 
     <RadioButton
+        android:id="@+id/self_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:text="@string/self"
-        android:id="@+id/self_radio_button"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewport_radio_button"
-        />
+        app:layout_constraintTop_toBottomOf="@id/viewport_radio_button" />
+
+    <TextView
+        android:id="@+id/radius_label"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:gravity="center"
+        android:text="@string/radius"
+        android:textColor="@color/text_color_selector"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/self_radio_button"
+        app:layout_constraintTop_toTopOf="@id/self_radio_button" />
+
+    <Button
+        android:id="@+id/reduce_radius_button"
+        style="@style/darkButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/minus_sign"
+        android:textColor="@color/text_color_selector"
+        app:layout_constraintStart_toEndOf="@id/radius_label"
+        app:layout_constraintTop_toTopOf="@id/self_radio_button" />
+
+    <TextView
+        android:id="@+id/radius_value"
+        android:layout_width="64dp"
+        android:layout_height="24dp"
+        android:gravity="center"
+        android:textColor="@color/text_color_selector"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/reduce_radius_button"
+        app:layout_constraintTop_toTopOf="@id/self_radio_button"
+        tools:text="5 km" />
+
+    <Button
+        android:id="@+id/increase_radius"
+        style="@style/darkButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:text="@string/plus_sign"
+        android:textColor="@color/text_color_selector"
+        app:layout_constraintStart_toEndOf="@id/radius_value"
+        app:layout_constraintTop_toTopOf="@id/self_radio_button" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/radius_option_view_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="radius_label,reduce_radius_button,radius_value,increase_radius"/>
 
     <Button
         android:id="@+id/search_button"

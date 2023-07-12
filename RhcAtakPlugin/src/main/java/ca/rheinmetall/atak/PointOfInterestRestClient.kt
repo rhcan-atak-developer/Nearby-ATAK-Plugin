@@ -32,13 +32,19 @@ class PointOfInterestRestClient @Inject constructor(
     lateinit var viewPort: MapViewPort
     private var api: PointOfInterestApi? = null
 
-    fun getPointOfInterests(categories: List<PointOfInterestType>, useBoundingBox: Boolean, retrofitEventListener: RetrofitEventListener) {
+    fun getPointOfInterestsInCurrentMapView(categories: List<PointOfInterestType>, retrofitEventListener: RetrofitEventListener) {
+        getPointOfInterests(categories, createSpatialFilterWithBBox(), retrofitEventListener)
+    }
+
+    fun getPointOfInterestAroundSelf(categories: List<PointOfInterestType>, radius: Int, retrofitEventListener: RetrofitEventListener) {
+        val spatialFilter = createSpatialFilter(mapView.selfMarker.point.latitude, mapView.selfMarker.point.longitude, radius.toDouble())
+        getPointOfInterests(categories, spatialFilter, retrofitEventListener)
+    }
+
+    fun getPointOfInterests(categories: List<PointOfInterestType>, spatialFilter: String, retrofitEventListener: RetrofitEventListener) {
         val retrofit = NetworkClient.retrofitClient
         api = retrofit.create(PointOfInterestApi::class.java)
 
-        val spatialFilter = if (useBoundingBox)
-            createSpatialFilterWithBBox() else
-            createSpatialFilter(mapView.selfMarker.point.latitude, mapView.selfMarker.point.longitude, 5.0)
         val filter = createFilter(categories.flatMap { it.ids })
         val apiKey = sharedPreferences.getStringPreference(PreferenceEnum.API_KEY)
         val apiCall = api!!.getPointOfInterestList(spatialFilter, filter, numberOfResults, createSelect(), apiKey, "json")

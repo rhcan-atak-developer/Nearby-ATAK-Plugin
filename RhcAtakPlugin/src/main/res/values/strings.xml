@@ -47,4 +47,7 @@
     <string name="self">Self</string>
     <string name="search_options">Search Options:</string>
     <string name="key">API Key</string>
+    <string name="minus_sign">-</string>
+    <string name="radius">Radius</string>
+    <string name="plus_sign">+</string>
 </resources>

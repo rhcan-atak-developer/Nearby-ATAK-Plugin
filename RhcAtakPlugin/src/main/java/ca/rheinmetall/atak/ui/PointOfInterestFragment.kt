@@ -37,11 +37,15 @@ class PointOfInterestFragment @Inject constructor(
         viewModel.selectedOption.observe(viewLifecycleOwner) { onSelectedOptionChanged(it)}
         binding.selfRadioButton.setOnClickListener() { viewModel.selectSelfOption() }
         binding.viewportRadioButton.setOnClickListener() { viewModel.selectViewportOption() }
+        binding.reduceRadiusButton.setOnClickListener { viewModel.reduceRadius() }
+        binding.increaseRadius.setOnClickListener { viewModel.increaseRadius() }
+        viewModel.radius.observe(viewLifecycleOwner) { binding.radiusValue.text = "${it} km" }
     }
 
     private fun onSelectedOptionChanged(type: SearchType?) {
         binding.selfRadioButton.isChecked = type == SearchType.SELF
         binding.viewportRadioButton.isChecked = type == SearchType.VIEWPORT
+        binding.radiusOptionViewGroup.isEnabled = type == SearchType.SELF
     }
 
     private fun onSelectedCategoriesChanged(selectedCategories: List<PointOfInterestType>) {
