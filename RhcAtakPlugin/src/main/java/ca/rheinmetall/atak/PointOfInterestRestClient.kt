@@ -79,7 +79,7 @@ class PointOfInterestRestClient @Inject constructor(private val mapView: MapView
     }
 
     private fun createSpatialFilterWithBBox(): String {
-        return "bbox(${viewPort.downRight.lat},${viewPort.downRight.lon},${viewPort.upperLeft.lat},${viewPort.upperLeft.lon})"
+        return "bbox(${viewPort.downLeft.lat},${viewPort.downLeft.lon},${viewPort.upperRight.lat},${viewPort.upperRight.lon})"
     }
 
     private fun createSpatialFilter(lat: Double, lon: Double, radius: Double): String {
