@@ -11,7 +11,6 @@ import ca.rheinmetall.atak.map.MapViewPort
 import ca.rheinmetall.atak.map.MapViewPortDetector
 import ca.rheinmetall.atak.model.route.TrafficIncident
 import ca.rheinmetall.atak.model.route.TrafficIncidentRepository
-import ca.rheinmetall.atak.ui.PointOfInterestViewModel
 import ca.rheinmetall.atak.ui.incidents.IncidentsViewModel
 import retrofit2.Call
 import retrofit2.Callback

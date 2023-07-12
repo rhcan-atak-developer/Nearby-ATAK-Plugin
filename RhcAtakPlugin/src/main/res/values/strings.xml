@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">App name</string>
-    <string name="app_desc">App desc</string>
+    <string name="app_name">Spatial Data Services</string>
+    <string name="app_desc">Service that can geocode, store and query spatial data from online Web API</string>
     <string name="points_of_interest">Points of interest</string>
     <string name="select_categories">Select categories</string>
     <string name="search">Search</string>

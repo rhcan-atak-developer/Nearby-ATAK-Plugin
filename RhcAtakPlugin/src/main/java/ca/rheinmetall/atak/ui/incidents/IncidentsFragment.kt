@@ -3,34 +3,27 @@ package ca.rheinmetall.atak.ui.incidents
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ca.rheinmetall.atak.R
-import ca.rheinmetall.atak.RetrofitEventListener
 import ca.rheinmetall.atak.Severity
-import ca.rheinmetall.atak.TrafficIncidentRestClient
 import ca.rheinmetall.atak.TrafficIncidentType
 import ca.rheinmetall.atak.dagger.PluginContext
 import ca.rheinmetall.atak.dagger.ViewModelFactory
 import ca.rheinmetall.atak.databinding.IncidentsFragmentBinding
-import ca.rheinmetall.atak.json.route.TrafficIncidentResponse
-import retrofit2.Call
 import javax.inject.Inject
 
 class IncidentsFragment @Inject constructor(
     @PluginContext private val pluginContext: Context,
-    private val viewModelFactory: ViewModelFactory,
-    private val trafficIncidentRestClient: TrafficIncidentRestClient
+    private val viewModelFactory: ViewModelFactory
 ) : Fragment() {
     private lateinit var binding: IncidentsFragmentBinding
     private lateinit var viewModel: IncidentsViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = IncidentsFragmentBinding.inflate(LayoutInflater.from(pluginContext))
-        callTrafficAPI()
         return binding.root
     }
 
@@ -74,19 +67,5 @@ class IncidentsFragment @Inject constructor(
             }
             .setPositiveButton(pluginContext.getText(R.string.ok)) { _, i -> if(i != -1) viewModel.selectTrafficIncident(type[i])}
             .show()
-    }
-
-    private fun callTrafficAPI() {
-        trafficIncidentRestClient.retrofitEventListener( object : RetrofitEventListener {
-            override  fun onSuccess(call: Call<*>, response: Any) {
-                if (response is TrafficIncidentResponse) {
-                    response.trafficIncidentResponseData.forEach{it.resources.forEach { Log.d("trafficIncident", it.description?:"") }}
-                }
-            }
-
-            override fun onError(call: Call<*>, t: Throwable) {
-                Log.e("trafficIncident", "onError: $call", t )
-            }
-        })
     }
 }
