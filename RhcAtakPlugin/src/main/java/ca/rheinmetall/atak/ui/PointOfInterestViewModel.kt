@@ -63,7 +63,7 @@ class PointOfInterestViewModel @Inject constructor(
 
     fun searchPointOfInterests() {
         _selectedCategories.value?.let {
-            pointOfInterestRestClient.getPointOfInterests(it, object : RetrofitEventListener {
+            pointOfInterestRestClient.getPointOfInterests(it, false, object : RetrofitEventListener {
                 override fun onSuccess(call: Call<*>, response: Any) {
                     if (response is PointOfInterestResponse) {
                         researchResultsRepository.setResults(response.pointOfInterestResponseData?.results ?: emptyList())
