@@ -1,7 +1,6 @@
 package ca.rheinmetall.atak
 
 import android.util.Log
-import ca.rheinmetall.atak.json.PointOfInterestResponse
 import ca.rheinmetall.atak.json.route.TrafficIncidentResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +19,7 @@ class TrafficIncidntRestClient {
         val retrofit = NetworkClient2.retrofitClient
         api = retrofit.create(TrafficIncidentApi::class.java)
 
-        val apiCall = api!!.getTrafficIncidentList(45.395557,-73.373854,45.622682,-74.159889, key,"json")
+        val apiCall = api!!.getTrafficIncidentList(45.395557,-73.373854,45.622682,-74.159889, key, TrafficIncidentType.Construction.typeCode, Severity.Serious.severityCode,"json")
 
         Log.d(TAG, "request: ${apiCall.request()}")
 
