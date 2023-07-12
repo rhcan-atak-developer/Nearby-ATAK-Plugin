@@ -40,7 +40,7 @@ class PointOfInterestRestClient {
             override fun onResponse(call: Call<PointOfInterestResponse>?, response: Response<PointOfInterestResponse>?) {
                 /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
                  */
-                Log.d("KEK", response.toString())
+                Log.d("pbolduc", response.toString())
                 if (response?.body() != null) {
                     retrofitEventListener.onSuccess(call, response.body())
                 }
