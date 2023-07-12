@@ -20,8 +20,9 @@ private const val CATEGORIES_PREF_KEY = "ca.rheinmetall.atak.SELECTED_POI_CATEGO
 
 class PointOfInterestViewModel @Inject constructor(
     private val repository: PointOfInterestRepository,
-    @DefaultSharedPreferences private val sharedPreferences: SharedPreferences
-) : ViewModel() {
+    @DefaultSharedPreferences private val sharedPreferences: SharedPreferences,
+    private val pointOfInterestRestClient: PointOfInterestRestClient)
+ : ViewModel() {
     private val _selectedCategories = MutableLiveData<List<PointOfInterestType>>()
     val selectedCategories: LiveData<List<PointOfInterestType>> = _selectedCategories
 
@@ -36,7 +37,7 @@ class PointOfInterestViewModel @Inject constructor(
 
     fun searchPointOfInterests() {
         _selectedCategories.value?.let {
-            PointOfInterestRestClient.instance.getPointOfInterests(it, object : RetrofitEventListener {
+            pointOfInterestRestClient.getPointOfInterests(it, object : RetrofitEventListener {
                 override fun onSuccess(call: Call<*>, response: Any) {
                     if (response is PointOfInterestResponse) {
                         repository.addPointOfInterests(response.pointOfInterestResponseData?.results?.mapNotNull { it.toPointOfInterestModel() } ?: emptyList())

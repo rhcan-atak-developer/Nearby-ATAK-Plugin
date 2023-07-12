@@ -11,23 +11,22 @@ import com.atakmap.android.maps.MapView;
 import com.atakmap.coremap.maps.coords.GeoBounds;
 import com.atakmap.map.AtakMapView;
 
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import ca.rheinmetall.atak.PointOfInterestRestClient;
-import ca.rheinmetall.atak.lifecycle.PluginLifeCycle;
 
 @Singleton
 public class MapViewPortDetector implements MapEventDispatcher.MapEventDispatchListener, AtakMapView.OnMapProjectionChangedListener, AtakMapView.OnMapViewResizedListener {
     public final MutableLiveData<MapViewPort> _mapViewPortMutableLiveData = new MutableLiveData<>(null);
     private final MapView _mapView;
+    private final PointOfInterestRestClient _pointOfInterestRestClient;
 
     @Inject
-    MapViewPortDetector(final MapView mapView)
+    MapViewPortDetector(final MapView mapView, final PointOfInterestRestClient pointOfInterestRestClient)
     {
         _mapView = mapView;
+        _pointOfInterestRestClient = pointOfInterestRestClient;
         updateViewPort();
     }
 
@@ -75,6 +74,6 @@ public class MapViewPortDetector implements MapEventDispatcher.MapEventDispatchL
         _mapViewPortMutableLiveData.setValue(mapViewPort);
         Log.d("KEK", mapViewPort.toString());
 
-        PointOfInterestRestClient.Companion.getInstance().setViewPort(mapViewPort);
+        _pointOfInterestRestClient.setViewPort(mapViewPort);
     }
 }
