@@ -44,7 +44,15 @@ class PointOfInterestMapGroup @Inject constructor(
                 .setCallsign(poi.name ?: poi.pointOfInterestIcon.name)
 
             markers[poi.uuid] = marker.placePoint()
-
+        } else {
+            currents[poi.uuid] = poi
+            val point = GeoPoint(poi.lat, poi.lon, 0.0)
+            val icon = iconset.getIcon(poi.pointOfInterestIcon.imageName)
+            val type: String? = icon.get2525cType()
+            val marker = markers[poi.uuid]
+            marker?.point = point
+            marker?.type = type
+            marker?.title = poi.name ?: poi.pointOfInterestIcon.name
         }
     }
 }

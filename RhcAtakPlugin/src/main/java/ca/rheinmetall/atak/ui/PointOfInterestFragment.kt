@@ -49,12 +49,11 @@ class PointOfInterestFragment @Inject constructor(
 
     private fun onSelectCategoriesPressed() {
         val categories = PointOfInterestType.values()
-        val choices = categories.map { pluginContext.getString(it.stringRes) }.toTypedArray()
-        val checkedItems = choices.map { false }.toBooleanArray()
+        val choicesWithCheckedState = categories.map { Pair(pluginContext.getString(it.stringRes), viewModel.selectedCategories.value?.contains(it) ?: false) }.toTypedArray()
         AlertDialog.Builder(requireContext())
             .setTitle(pluginContext.getString(R.string.select_categories))
-            .setMultiChoiceItems(choices, checkedItems) {_, which, isChecked -> checkedItems[which] = isChecked }
-            .setPositiveButton(pluginContext.getText(R.string.ok)) { _, _ -> viewModel.selectCategories(categories.mapIndexed {i, category -> Pair(checkedItems[i], category) } )}
+            .setMultiChoiceItems(choicesWithCheckedState.map { it.first }.toTypedArray(), choicesWithCheckedState.map { it.second }.toBooleanArray()) {_, which, isChecked -> choicesWithCheckedState[which] = Pair(choicesWithCheckedState[which].first, isChecked) }
+            .setPositiveButton(pluginContext.getText(R.string.ok)) { _, _ -> viewModel.selectCategories(categories.mapIndexed {i, category -> Pair(choicesWithCheckedState[i].second, category) } )}
             .show()
     }
 
