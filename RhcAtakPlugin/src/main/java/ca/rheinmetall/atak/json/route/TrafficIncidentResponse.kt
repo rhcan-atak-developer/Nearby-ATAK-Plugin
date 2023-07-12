@@ -1,6 +1,5 @@
 package ca.rheinmetall.atak.json.route
 
-import com.example.example.TrafficIncidentResponseData
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonRawValue
 

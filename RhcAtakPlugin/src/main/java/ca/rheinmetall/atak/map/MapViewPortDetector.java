@@ -16,6 +16,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import ca.rheinmetall.atak.PointOfInterestRestClient;
 import ca.rheinmetall.atak.lifecycle.PluginLifeCycle;
 
 @Singleton
@@ -73,5 +74,7 @@ public class MapViewPortDetector implements MapEventDispatcher.MapEventDispatchL
             new Point(bounds.getSouth(), bounds.getEast()));
         _mapViewPortMutableLiveData.setValue(mapViewPort);
         Log.d("KEK", mapViewPort.toString());
+
+        PointOfInterestRestClient.Companion.getInstance().setViewPort(mapViewPort);
     }
 }

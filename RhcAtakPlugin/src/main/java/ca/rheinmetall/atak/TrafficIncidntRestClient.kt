@@ -9,7 +9,7 @@ import retrofit2.Response
 class TrafficIncidntRestClient {
 
     companion object {
-        val TAG = "TrafficIncidntRestClien"
+        val TAG = "TrafficIncidntRestClient"
         val instance = TrafficIncidntRestClient()
     }
 

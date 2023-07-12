@@ -1,6 +1,5 @@
 package ca.rheinmetall.atak
 
-import ca.rheinmetall.atak.json.PointOfInterestResponse
 import ca.rheinmetall.atak.json.route.TrafficIncidentResponse
 import retrofit2.Call
 import retrofit2.http.GET
