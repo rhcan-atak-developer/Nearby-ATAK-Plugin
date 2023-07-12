@@ -13,7 +13,6 @@ import com.atakmap.android.maps.MapView
 import com.atakmap.android.maps.Marker
 import com.atakmap.coremap.filesystem.FileSystemUtils
 import com.atakmap.coremap.maps.coords.GeoPoint
-import java.util.EnumMap
 import javax.inject.Inject
 import javax.inject.Singleton
 

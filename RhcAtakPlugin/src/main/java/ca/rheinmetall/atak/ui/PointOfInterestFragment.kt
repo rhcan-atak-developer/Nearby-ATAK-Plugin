@@ -2,12 +2,13 @@ package ca.rheinmetall.atak.ui
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Checkable
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ca.rheinmetall.atak.R
@@ -93,11 +94,27 @@ class PointOfInterestFragment @Inject constructor(
     private fun onSelectCategoriesPressed() {
         val categories = PointOfInterestType.values()
         val choicesWithCheckedState = categories.map { Pair(pluginContext.getString(it.stringRes), viewModel.selectedCategories.value?.contains(it) ?: false) }.toTypedArray()
-        AlertDialog.Builder(requireContext())
+        val dialog = AlertDialog.Builder(requireContext())
             .setTitle(pluginContext.getString(R.string.select_categories))
-            .setMultiChoiceItems(choicesWithCheckedState.map { it.first }.toTypedArray(), choicesWithCheckedState.map { it.second }.toBooleanArray()) {_, which, isChecked -> choicesWithCheckedState[which] = Pair(choicesWithCheckedState[which].first, isChecked) }
-            .setPositiveButton(pluginContext.getText(R.string.ok)) { _, _ -> viewModel.selectCategories(categories.mapIndexed {i, category -> Pair(choicesWithCheckedState[i].second, category) } )}
+            .setMultiChoiceItems(
+                choicesWithCheckedState.map { it.first }.toTypedArray(),
+                choicesWithCheckedState.map { it.second }.toBooleanArray()
+            ) { _, which, isChecked -> choicesWithCheckedState[which] = Pair(choicesWithCheckedState[which].first, isChecked) }
+            .setPositiveButton(pluginContext.getText(R.string.ok)) { _, _ -> onPositiveButtonClicked(categories, choicesWithCheckedState) }
+            .setNeutralButton(pluginContext.getText(R.string.unselect), null)
             .show()
+
+        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
+            for (i in choicesWithCheckedState.indices)
+                choicesWithCheckedState[i] = Pair(choicesWithCheckedState[i].first, false)
+
+            dialog.listView.clearChoices()
+            dialog.listView.children.map { it as Checkable }.forEach { it.isChecked = false }
+        }
+    }
+
+    private fun onPositiveButtonClicked(categories: Array<PointOfInterestType>, choicesWithCheckedState: Array<Pair<String, Boolean>>) {
+        viewModel.selectCategories(categories.mapIndexed { i, category -> Pair(choicesWithCheckedState[i].second, category) })
     }
 
     private fun callTrafficAPI() {

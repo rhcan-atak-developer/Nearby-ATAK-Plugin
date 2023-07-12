@@ -41,4 +41,5 @@
     <string name="select_incident_type">Select Incident Type</string>
     <string name="select_severity">Select Severity</string>
     <string name="add_selected">Add Selected</string>
+    <string name="unselect">Clear Selection</string>
 </resources>
