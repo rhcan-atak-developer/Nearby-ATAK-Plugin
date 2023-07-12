@@ -77,7 +77,7 @@ class TrafficIncidentRestClient @Inject constructor(
                 response: Response<TrafficIncidentResponse>
             ) {
                 trafficIncidentRepository.clearTrafficIncidents()
-                response.body()?.trafficIncidentResponseData?.forEach{it.resources.forEach { Log.d("trafficIncident", it.description?:"") }}
+                response.body()?.trafficIncidentResponseData?.forEach{it.resources.forEach { Log.d(TAG, it.description?:"") }}
                 response.body()?.trafficIncidentResponseData?.forEach{ it ->
                     run {
                         it.resources.forEach {

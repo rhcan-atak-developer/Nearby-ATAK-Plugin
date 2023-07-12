@@ -28,6 +28,7 @@ class TrafficIncidentRepository @Inject constructor(private val mapView: MapView
     
     fun clearTrafficIncidents() {
         _trafficIncidents.clear()
+        trafficIncidents.postValue(_trafficIncidents.values.toList())
     }
 
     val trafficIncidents: MutableLiveData<List<TrafficIncident>> = MutableLiveData(ArrayList())

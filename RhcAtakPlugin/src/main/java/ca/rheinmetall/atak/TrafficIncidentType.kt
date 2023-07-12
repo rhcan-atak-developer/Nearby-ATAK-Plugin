@@ -6,7 +6,7 @@ enum class TrafficIncidentType(val typeCode: Int, val imageName: String = "traff
     Congestion(2, "traffic_jam.png"),
     DisabledVehicle(3, "towing.png"),
     MassTransit(4, "bus.png"),
-    Miscellaneous(5, "traffic_jam.png", true),
+    Miscellaneous(5, "information.png"),
     OtherNews(6, "traffic_jam.png", true),
     PlannedEvent(7, "traffic_jam.png", true),
     RoadHazard(8, "caution.png"),
