@@ -8,7 +8,6 @@ import android.content.Context;
 import android.util.Log;
 
 import ca.rheinmetall.atak.dagger.DaggerPluginApplicationComponent;
-import ca.rheinmetall.atak.dagger.EagerSingleton;
 import ca.rheinmetall.atak.map.MapViewPortDetector;
 import ca.rheinmetall.atak.mapgroup.PointOfInterestMapGroup;
 import ca.rheinmetall.atak.ui.RhcPluginMapComponent;
