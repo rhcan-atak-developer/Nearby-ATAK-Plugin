@@ -4,8 +4,11 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import ca.rheinmetall.atak.dagger.MainExecutor
 import ca.rheinmetall.atak.json.route.TrafficIncidentResponse
+import ca.rheinmetall.atak.json.route.TrafficIncidentResult
 import ca.rheinmetall.atak.map.MapViewPort
 import ca.rheinmetall.atak.map.MapViewPortDetector
+import ca.rheinmetall.atak.model.route.TrafficIncident
+import ca.rheinmetall.atak.model.route.TrafficIncidentRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,7 +19,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TrafficIncidentRestClient  @Inject constructor(@MainExecutor private val executor: ScheduledExecutorService, private val mapViewPortDetector: MapViewPortDetector) :
+class TrafficIncidentRestClient  @Inject constructor(@MainExecutor private val executor: ScheduledExecutorService, private val mapViewPortDetector: MapViewPortDetector, private val trafficIncidentRepository: TrafficIncidentRepository) :
     Observer<MapViewPort> {
 
     private var future: ScheduledFuture<*>? = null
@@ -61,7 +64,7 @@ class TrafficIncidentRestClient  @Inject constructor(@MainExecutor private val e
                 call: Call<TrafficIncidentResponse>,
                 response: Response<TrafficIncidentResponse>
             ) {
-                Log.d(TAG, response.toString())
+                response.body()?.trafficIncidentResponseData?.forEach{it.resources.forEach { addTrafficIncident(it) }}
                 if (response.body() != null) {
                     eventListener?.onSuccess(call, response.body())
                 }
@@ -70,6 +73,12 @@ class TrafficIncidentRestClient  @Inject constructor(@MainExecutor private val e
                 eventListener?.onError(call, t)
             }
         })
+    }
+
+    private fun addTrafficIncident(trafficIncidentResult: TrafficIncidentResult) {
+        trafficIncidentResult.point?.coordinates?.let {
+            trafficIncidentRepository.addTrafficIncident(TrafficIncident(it[0], it[1], trafficIncidentResult.description, trafficIncidentResult.incidentId))
+        }
     }
 
     fun retrofitEventListener(retrofitEventListener: RetrofitEventListener) {

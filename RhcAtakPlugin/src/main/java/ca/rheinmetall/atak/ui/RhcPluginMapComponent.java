@@ -17,19 +17,24 @@ import java.util.List;
 import ca.rheinmetall.atak.R;
 import ca.rheinmetall.atak.application.RhcPluginBroadcastEnum;
 import ca.rheinmetall.atak.mapgroup.PointOfInterestMapGroup;
+import ca.rheinmetall.atak.mapgroup.TrafficIncidentMapGroup;
 
 @Singleton
 public class RhcPluginMapComponent extends DropDownMapComponent
 {
     private final RhcPluginDropDownReceiver _issPluginTesterDropDownReceiver;
     private final PointOfInterestMapGroup _pointOfInterestMapGroup;
+    private final TrafficIncidentMapGroup _trafficIncidentMapGroup;
     private final List<DefaultMapGroupOverlay> _overlays = new ArrayList<>();
 
     @Inject
-    RhcPluginMapComponent(final RhcPluginDropDownReceiver issPluginTesterDropDownReceiver, final PointOfInterestMapGroup pointOfInterestMapGroup)
+    RhcPluginMapComponent(final RhcPluginDropDownReceiver issPluginTesterDropDownReceiver,
+                          final PointOfInterestMapGroup pointOfInterestMapGroup,
+                          final TrafficIncidentMapGroup trafficIncidentMapGroup)
     {
         _issPluginTesterDropDownReceiver = issPluginTesterDropDownReceiver;
         _pointOfInterestMapGroup = pointOfInterestMapGroup;
+        _trafficIncidentMapGroup = trafficIncidentMapGroup;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class RhcPluginMapComponent extends DropDownMapComponent
 
         final String iconUri = "android.resource://" + context.getPackageName() + "/" + R.drawable.ic_launcher;
         _overlays.add(new DefaultMapGroupOverlay(mapView, _pointOfInterestMapGroup, iconUri));
+        _overlays.add(new DefaultMapGroupOverlay(mapView, _trafficIncidentMapGroup, iconUri));
         _overlays.forEach(mapView.getMapOverlayManager()::addOverlay);
     }
 
