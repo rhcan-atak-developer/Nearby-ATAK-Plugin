@@ -9,11 +9,13 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:padding="8dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/LightGrey"
         tools:src="@drawable/ic_placeholder" />
 
     <TextView
@@ -22,7 +24,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingVertical="4dp"
+        android:padding="4dp"
         android:textColor="@color/selectable_search_result_text_color"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@id/distance"
@@ -34,6 +36,7 @@
         android:id="@+id/address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="4dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/selectable_search_result_text_color"
