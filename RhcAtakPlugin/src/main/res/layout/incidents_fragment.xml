@@ -20,40 +20,52 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:gravity="center_vertical"
-        android:text="@string/points_of_interest"
+        android:text="@string/incidents"
         app:layout_constraintBottom_toBottomOf="@id/header_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/selectCategoriesButton"
+        android:id="@+id/selectIncidentTypeBtn"
         style="@style/darkButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/select_categories"
+        android:text="@string/select_incident_type"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <TextView
-        android:id="@+id/selectedCategoriesHint"
+        android:id="@+id/selectedIncidentHint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="3"
         android:textColor="@color/default_text_color"
         android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectCategoriesButton"
-        tools:text="Police stations, Fire stations" />
+        app:layout_constraintTop_toBottomOf="@id/selectIncidentTypeBtn"
+        tools:text="Accident" />
 
     <Button
-        android:id="@+id/search_button"
+        android:id="@+id/selectSeverityTypeBtn"
         style="@style/darkButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/search"
+        android:text="@string/select_severity"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectedCategoriesHint" />
+        app:layout_constraintTop_toBottomOf="@id/selectedIncidentHint" />
+
+    <TextView
+        android:id="@+id/selectedSeverityHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:textColor="@color/default_text_color"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectSeverityTypeBtn"
+        tools:text="Serious" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

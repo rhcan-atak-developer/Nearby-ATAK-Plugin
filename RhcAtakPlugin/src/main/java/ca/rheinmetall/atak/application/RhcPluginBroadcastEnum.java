@@ -4,7 +4,8 @@ import ca.rheinmetall.atak.broadcast.Broadcast;
 
 public enum RhcPluginBroadcastEnum implements Broadcast
 {
-    SHOW_RHC_PLUGIN("ca.rheinmetall.atak.applicatio.SHOW_RHC_PLUGIN"),
+    SHOW_POI_PLUGIN("ca.rheinmetall.atak.applicatio.SHOW_POI_PLUGIN"),
+    SHOW_INCIDENTS_PLUGIN("ca.rheinmetall.atak.applicatio.SHOW_INCIDENTS_PLUGIN"),
     SHOW_SEARCH_RESULTS("ca.rheinmetall.atak.show_search_results"),
     CLOSE_SEARCH_RESULTS("ca.rheinmetall.atak.close_search_results");
 

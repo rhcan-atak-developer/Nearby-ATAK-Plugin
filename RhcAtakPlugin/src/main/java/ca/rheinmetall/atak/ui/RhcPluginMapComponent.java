@@ -48,7 +48,8 @@ public class RhcPluginMapComponent extends DropDownMapComponent
         super.onCreate(context, intent, mapView);
 
         final AtakBroadcast.DocumentedIntentFilter listFilter = new AtakBroadcast.DocumentedIntentFilter();
-        listFilter.addAction(RhcPluginBroadcastEnum.SHOW_RHC_PLUGIN.getAction());
+        listFilter.addAction(RhcPluginBroadcastEnum.SHOW_POI_PLUGIN.getAction());
+        listFilter.addAction(RhcPluginBroadcastEnum.SHOW_INCIDENTS_PLUGIN.getAction());
         registerDropDownReceiver(_issPluginTesterDropDownReceiver, listFilter);
         AtakBroadcast.DocumentedIntentFilter searchResultIntentFilter = new AtakBroadcast.DocumentedIntentFilter(RhcPluginBroadcastEnum.SHOW_SEARCH_RESULTS.getAction());
         searchResultIntentFilter.addAction(RhcPluginBroadcastEnum.CLOSE_SEARCH_RESULTS.getAction());

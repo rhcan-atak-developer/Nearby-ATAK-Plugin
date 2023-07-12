@@ -7,14 +7,14 @@ import androidx.core.content.ContextCompat;
 
 import ca.rheinmetall.atak.R;
 
-public class RhcPluginTool extends AbstractPluginTool
+public class PoiPluginTool extends AbstractPluginTool
 {
-    public RhcPluginTool(final Context context)
+    public PoiPluginTool(final Context context)
     {
         super(context,
-              context.getString(R.string.app_name),
-              context.getString(R.string.app_name),
+              context.getString(R.string.points_of_interest),
+              context.getString(R.string.points_of_interest),
               ContextCompat.getDrawable(context, R.drawable.ic_launcher),
-              RhcPluginBroadcastEnum.SHOW_RHC_PLUGIN.getAction());
+              RhcPluginBroadcastEnum.SHOW_POI_PLUGIN.getAction());
     }
 }

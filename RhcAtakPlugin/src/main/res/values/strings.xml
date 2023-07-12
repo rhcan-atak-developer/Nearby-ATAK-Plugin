@@ -38,6 +38,7 @@
     <string name="no_categories_selected">No categories selected</string>
     <string name="search_results_title">Search Results</string>
     <string name="add_all">Add All</string>
+    <string name="incidents">Incidents</string>
     <string name="select_incident_type">Select Incident Type</string>
     <string name="select_severity">Select Severity</string>
     <string name="add_selected">Add Selected</string>

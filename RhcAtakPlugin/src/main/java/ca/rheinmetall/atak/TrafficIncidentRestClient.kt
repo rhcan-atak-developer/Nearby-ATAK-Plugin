@@ -12,6 +12,7 @@ import ca.rheinmetall.atak.map.MapViewPortDetector
 import ca.rheinmetall.atak.model.route.TrafficIncident
 import ca.rheinmetall.atak.model.route.TrafficIncidentRepository
 import ca.rheinmetall.atak.ui.PointOfInterestViewModel
+import ca.rheinmetall.atak.ui.incidents.IncidentsViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -64,8 +65,8 @@ class TrafficIncidentRestClient @Inject constructor(
         val viewPort = mapViewPortDetector._mapViewPortMutableLiveData.value
 
         val apiCall = api!!.getTrafficIncidentList(viewPort!!.downRight.lat, viewPort.downRight.lon, viewPort.upperLeft.lat,viewPort.upperLeft.lon, key,
-            sharedPreferences.getInt(PointOfInterestViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY, TrafficIncidentType.Accident.typeCode),
-            sharedPreferences.getInt(PointOfInterestViewModel.SEVERITY_PREF_KEY, Severity.Serious.severityCode),"json")
+            sharedPreferences.getInt(IncidentsViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY, TrafficIncidentType.Accident.typeCode),
+            sharedPreferences.getInt(IncidentsViewModel.SEVERITY_PREF_KEY, Severity.Serious.severityCode),"json")
 
         Log.d(TAG, "request: ${apiCall.request()}")
 
@@ -101,7 +102,7 @@ class TrafficIncidentRestClient @Inject constructor(
     }
 
     override fun onSharedPreferenceChanged(p0: SharedPreferences?, key: String?) {
-        if(PointOfInterestViewModel.SEVERITY_PREF_KEY == key || PointOfInterestViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY == key)
+        if(IncidentsViewModel.SEVERITY_PREF_KEY == key || IncidentsViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY == key)
             getTrafficIncidentList()
     }
 }

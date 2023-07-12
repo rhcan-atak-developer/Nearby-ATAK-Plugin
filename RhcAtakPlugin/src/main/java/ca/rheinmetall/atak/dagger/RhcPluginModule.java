@@ -30,6 +30,8 @@ import ca.rheinmetall.atak.thread.NamedExecutorFactory;
 import ca.rheinmetall.atak.ui.PointOfInterestViewModel;
 import ca.rheinmetall.atak.ui.PointOfInterestFragment;
 import ca.rheinmetall.atak.ui.RhcPluginViewModel;
+import ca.rheinmetall.atak.ui.incidents.IncidentsFragment;
+import ca.rheinmetall.atak.ui.incidents.IncidentsViewModel;
 import ca.rheinmetall.atak.ui.search_results.SearchResultFragment;
 import ca.rheinmetall.atak.ui.search_results.SearchResultViewModel;
 import dagger.Binds;
@@ -48,10 +50,23 @@ public interface RhcPluginModule
         return new DaggerFragmentFactory<>(provider, PointOfInterestFragment.class);
     }
 
+    @Provides
+    @IntoMap
+    @FragmentFactoryKey(IncidentsFragment.class)
+    static androidx.fragment.app.FragmentFactory bindIncidentsFragment(final Provider<IncidentsFragment> provider)
+    {
+        return new DaggerFragmentFactory<>(provider, IncidentsFragment.class);
+    }
+
     @Binds
     @IntoMap
     @ViewModelKey(PointOfInterestViewModel.class)
     ViewModel bindPointOfInterestViewModel(final PointOfInterestViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(IncidentsViewModel.class)
+    ViewModel bindIncidentsViewModel(final IncidentsViewModel viewModel);
 
     @Provides
     @IntoMap

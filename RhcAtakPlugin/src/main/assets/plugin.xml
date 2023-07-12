@@ -9,6 +9,12 @@
 
     <extension
         type="transapps.maps.plugin.tool.ToolDescriptor"
-        impl="ca.rheinmetall.atak.application.RhcPluginTool"
+        impl="ca.rheinmetall.atak.application.PoiPluginTool"
         singleton="true" />
+
+    <extension
+        type="transapps.maps.plugin.tool.ToolDescriptor"
+        impl="ca.rheinmetall.atak.application.IncidentPluginTool"
+        singleton="true" />
+
 </plugin>
