@@ -45,7 +45,7 @@ class IncidentsFragment @Inject constructor(
         val severity = Severity.values()
         AlertDialog.Builder(requireContext())
             .setTitle(pluginContext.getString(R.string.select_severity))
-            .setSingleChoiceItems(severity.map { it.name }.toTypedArray(), viewModel.selectedSeverity.value!!.severityCode -1) { _, i ->
+            .setSingleChoiceItems(severity.map { it.name }.toTypedArray(), viewModel.selectedSeverity.value!!.severityCode) { _, i ->
                 viewModel.selectSeverity(severity[i])
             }
             .setPositiveButton(pluginContext.getText(R.string.ok)) { _, i -> if(i != -1) viewModel.selectSeverity(severity[i])}
@@ -60,7 +60,7 @@ class IncidentsFragment @Inject constructor(
         val type = TrafficIncidentType.values().filter { !it.isHidden }.toTypedArray()
         AlertDialog.Builder(requireContext())
             .setTitle(pluginContext.getString(R.string.select_incident_type))
-            .setSingleChoiceItems(type.map { it.name }.toTypedArray(), viewModel.selectedTrafficIncidentType.value!!.typeCode -1) { _, i ->
+            .setSingleChoiceItems(type.map { it.name }.toTypedArray(), viewModel.selectedTrafficIncidentType.value!!.typeCode) { _, i ->
                 viewModel.selectTrafficIncident(type[i])
             }
             .setPositiveButton(pluginContext.getText(R.string.ok)) { _, i -> if(i != -1) viewModel.selectTrafficIncident(type[i])}
