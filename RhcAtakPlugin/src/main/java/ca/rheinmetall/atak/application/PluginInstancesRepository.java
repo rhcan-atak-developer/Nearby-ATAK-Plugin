@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import ca.rheinmetall.atak.lifecycle.PluginLifeCycle;
-import gov.tak.api.annotation.DeprecatedApi;
 
 @Singleton
 public class PluginInstancesRepository implements AutoCloseable

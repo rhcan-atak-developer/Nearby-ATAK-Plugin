@@ -8,6 +8,8 @@ import android.content.Context;
 import android.util.Log;
 
 import ca.rheinmetall.atak.dagger.DaggerPluginApplicationComponent;
+import ca.rheinmetall.atak.dagger.EagerSingleton;
+import ca.rheinmetall.atak.map.MapViewPortDetector;
 import ca.rheinmetall.atak.mapgroup.PointOfInterestMapGroup;
 import ca.rheinmetall.atak.ui.RhcPluginMapComponent;
 import gov.tak.api.plugin.IServiceController;
@@ -21,6 +23,9 @@ public class RhcPluginLifecycle extends AbstractPlugin
 
     @Inject
     PointOfInterestMapGroup _pointOfInterestMapGroup;
+
+    @Inject
+    MapViewPortDetector _mapViewPortDetector;
 
     public RhcPluginLifecycle(final IServiceController serviceController)
     {
@@ -44,8 +49,16 @@ public class RhcPluginLifecycle extends AbstractPlugin
     }
 
     @Override
+    public void onStart()
+    {
+        super.onStart();
+        _mapViewPortDetector.start();
+    }
+
+    @Override
     public void onStop()
     {
         super.onStop();
+        _mapViewPortDetector.stop();
     }
 }
