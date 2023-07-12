@@ -6,5 +6,5 @@ import com.fasterxml.jackson.annotation.JsonRawValue
 
 data class TrafficIncidentResponseData (
   @JsonRawValue @JsonProperty("estimatedTotal" ) var estimatedTotal : Int?                 = null,
-  @JsonRawValue @JsonProperty("resources"      ) var resources      : ArrayList<TrafficIncident> = arrayListOf()
+  @JsonRawValue @JsonProperty("resources"      ) var resources      : ArrayList<TrafficIncidentResult> = arrayListOf()
 )

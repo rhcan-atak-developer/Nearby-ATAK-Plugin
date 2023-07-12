@@ -3,7 +3,7 @@ package ca.rheinmetall.atak.json.route
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonRawValue
 
-data class TrafficIncident(
+data class TrafficIncidentResult(
     @JsonRawValue @JsonProperty("__type") var _type: String? = null,
     @JsonRawValue @JsonProperty("point") var point: Location? = Location(),
     @JsonRawValue @JsonProperty("alertCCodes") var alertCCodes: ArrayList<Int> = arrayListOf(),
