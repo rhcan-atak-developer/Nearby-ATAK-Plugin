@@ -3,7 +3,6 @@ package ca.rheinmetall.atak
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.contentValuesOf
 import ca.rheinmetall.atak.dagger.MainExecutor
 import ca.rheinmetall.atak.dagger.PluginContext
 import ca.rheinmetall.atak.json.PointOfInterestResponse

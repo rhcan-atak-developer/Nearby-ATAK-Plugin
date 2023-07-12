@@ -7,6 +7,7 @@ import com.atakmap.android.maps.MapView;
 import android.content.Context;
 import android.util.Log;
 
+import ca.rheinmetall.atak.TrafficIncidentRestClient;
 import ca.rheinmetall.atak.dagger.DaggerPluginApplicationComponent;
 import ca.rheinmetall.atak.map.MapViewPortDetector;
 import ca.rheinmetall.atak.mapgroup.PointOfInterestMapGroup;
@@ -25,6 +26,9 @@ public class RhcPluginLifecycle extends AbstractPlugin
 
     @Inject
     MapViewPortDetector _mapViewPortDetector;
+
+    @Inject
+    TrafficIncidentRestClient _trafficIncidentRestClient;
 
     public RhcPluginLifecycle(final IServiceController serviceController)
     {
@@ -52,6 +56,7 @@ public class RhcPluginLifecycle extends AbstractPlugin
     {
         super.onStart();
         _mapViewPortDetector.start();
+        _trafficIncidentRestClient.start();
     }
 
     @Override
@@ -59,5 +64,6 @@ public class RhcPluginLifecycle extends AbstractPlugin
     {
         super.onStop();
         _mapViewPortDetector.stop();
+        _trafficIncidentRestClient.stop();
     }
 }

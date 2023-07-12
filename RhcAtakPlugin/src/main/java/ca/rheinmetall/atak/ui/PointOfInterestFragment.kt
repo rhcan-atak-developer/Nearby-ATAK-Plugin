@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ca.rheinmetall.atak.R
 import ca.rheinmetall.atak.RetrofitEventListener
-import ca.rheinmetall.atak.TrafficIncidntRestClient
+import ca.rheinmetall.atak.TrafficIncidentRestClient
 import ca.rheinmetall.atak.dagger.PluginContext
 import ca.rheinmetall.atak.dagger.ViewModelFactory
 import ca.rheinmetall.atak.databinding.RhcPluginFragmentBinding
@@ -22,7 +22,8 @@ import javax.inject.Inject
 
 class PointOfInterestFragment @Inject constructor(
     @PluginContext private val pluginContext: Context,
-    private val viewModelFactory: ViewModelFactory
+    private val viewModelFactory: ViewModelFactory,
+    private val trafficIncidentRestClient: TrafficIncidentRestClient
 ) : Fragment() {
     private lateinit var binding: RhcPluginFragmentBinding
     private lateinit var viewModel: PointOfInterestViewModel
@@ -58,7 +59,7 @@ class PointOfInterestFragment @Inject constructor(
     }
 
     internal fun callTrafficAPI() {
-        TrafficIncidntRestClient.instance.getTrafficIncidentList( object : RetrofitEventListener {
+        trafficIncidentRestClient.retrofitEventListener( object : RetrofitEventListener {
             override  fun onSuccess(call: Call<*>, response: Any) {
                 if (response is TrafficIncidentResponse) {
                     response.trafficIncidentResponseData.forEach{it.resources.forEach { Log.d("trafficIncident", it.description?:"") }}
