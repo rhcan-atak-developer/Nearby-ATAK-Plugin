@@ -11,6 +11,8 @@ import ca.rheinmetall.atak.map.MapViewPort
 import ca.rheinmetall.atak.map.MapViewPortDetector
 import ca.rheinmetall.atak.model.route.TrafficIncident
 import ca.rheinmetall.atak.model.route.TrafficIncidentRepository
+import ca.rheinmetall.atak.preference.PreferenceEnum
+import ca.rheinmetall.atak.preference.PreferencesExtensions.getStringPreference
 import ca.rheinmetall.atak.ui.incidents.IncidentsViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,8 +60,8 @@ class TrafficIncidentRestClient @Inject constructor(
         api = retrofit.create(TrafficIncidentApi::class.java)
 
         val viewPort = mapViewPortDetector._mapViewPortMutableLiveData.value
-
-        val apiCall = api!!.getTrafficIncidentList(viewPort!!.downRight.lat, viewPort.downRight.lon, viewPort.upperLeft.lat,viewPort.upperLeft.lon, key,
+        val apiKey = sharedPreferences.getStringPreference(PreferenceEnum.API_KEY)
+        val apiCall = api!!.getTrafficIncidentList(viewPort!!.downRight.lat, viewPort.downRight.lon, viewPort.upperLeft.lat,viewPort.upperLeft.lon, apiKey,
             sharedPreferences.getInt(IncidentsViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY, TrafficIncidentType.Accident.typeCode),
             sharedPreferences.getInt(IncidentsViewModel.SEVERITY_PREF_KEY, Severity.Serious.severityCode),"json")
 

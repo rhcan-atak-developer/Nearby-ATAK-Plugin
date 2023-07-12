@@ -3,14 +3,19 @@ package ca.rheinmetall.atak.application;
 import javax.inject.Inject;
 
 import com.atakmap.android.maps.MapView;
+import com.atakmap.app.preferences.ToolsPreferenceFragment;
 
 import android.content.Context;
 import android.util.Log;
 
+import androidx.core.content.ContextCompat;
+
+import ca.rheinmetall.atak.R;
 import ca.rheinmetall.atak.TrafficIncidentRestClient;
 import ca.rheinmetall.atak.dagger.DaggerPluginApplicationComponent;
 import ca.rheinmetall.atak.map.MapViewPortDetector;
 import ca.rheinmetall.atak.mapgroup.PointOfInterestMapGroup;
+import ca.rheinmetall.atak.preference.PreferenceFragment;
 import ca.rheinmetall.atak.ui.RhcPluginMapComponent;
 import gov.tak.api.plugin.IServiceController;
 
@@ -29,6 +34,9 @@ public class RhcPluginLifecycle extends AbstractPlugin
 
     @Inject
     TrafficIncidentRestClient _trafficIncidentRestClient;
+
+    @Inject
+    PreferenceFragment _preferenceFragment;
 
     public RhcPluginLifecycle(final IServiceController serviceController)
     {
@@ -49,6 +57,14 @@ public class RhcPluginLifecycle extends AbstractPlugin
 
 
         addMapComponent(_rhcPluginMapComponent);
+        final ToolsPreferenceFragment.ToolPreference pref = new ToolsPreferenceFragment.ToolPreference(
+                pluginContext.getString(R.string.app_name),
+                pluginContext.getString(R.string.app_name),
+                "rhc_app",
+                ContextCompat.getDrawable(pluginContext, R.drawable.ic_launcher),
+                _preferenceFragment);
+        ToolsPreferenceFragment.register(pref);
+
     }
 
     @Override
@@ -65,5 +81,6 @@ public class RhcPluginLifecycle extends AbstractPlugin
         super.onStop();
         _mapViewPortDetector.stop();
         _trafficIncidentRestClient.stop();
+        ToolsPreferenceFragment.unregister("rhc_app");
     }
 }

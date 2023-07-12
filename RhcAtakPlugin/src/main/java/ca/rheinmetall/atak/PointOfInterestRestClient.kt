@@ -1,13 +1,17 @@
 package ca.rheinmetall.atak
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
+import ca.rheinmetall.atak.dagger.DefaultSharedPreferences
 import ca.rheinmetall.atak.dagger.MainExecutor
 import ca.rheinmetall.atak.dagger.PluginContext
 import ca.rheinmetall.atak.json.PointOfInterestResponse
-import ca.rheinmetall.atak.model.PointOfInterestType
 import ca.rheinmetall.atak.map.MapViewPort
+import ca.rheinmetall.atak.model.PointOfInterestType
+import ca.rheinmetall.atak.preference.PreferenceEnum
+import ca.rheinmetall.atak.preference.PreferencesExtensions.getStringPreference
 import com.atakmap.android.maps.MapView
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,25 +22,26 @@ import javax.inject.Singleton
 
 private const val numberOfResults = 100
 
-const val key = "AqVdzQoQCWuvE8AaBd19rFYuTD7-o-IVJb3EVkn-fX8jDV341L0GCcCln1OgfFWu"
-
 @Singleton
-class PointOfInterestRestClient @Inject constructor(private val mapView: MapView,
+class PointOfInterestRestClient @Inject constructor(
+    private val mapView: MapView,
     @MainExecutor private val executor: ScheduledExecutorService,
-    @PluginContext private val pluginContext: Context)
-{
+    @PluginContext private val pluginContext: Context,
+    @DefaultSharedPreferences private val sharedPreferences: SharedPreferences,
+) {
     lateinit var viewPort: MapViewPort
     private var api: PointOfInterestApi? = null
 
-    fun getPointOfInterests(categories: List<PointOfInterestType>, useBoundingBox : Boolean, retrofitEventListener: RetrofitEventListener) {
+    fun getPointOfInterests(categories: List<PointOfInterestType>, useBoundingBox: Boolean, retrofitEventListener: RetrofitEventListener) {
         val retrofit = NetworkClient.retrofitClient
         api = retrofit.create(PointOfInterestApi::class.java)
 
-        val spatialFilter = if(useBoundingBox)
+        val spatialFilter = if (useBoundingBox)
             createSpatialFilterWithBBox() else
             createSpatialFilter(mapView.selfMarker.point.latitude, mapView.selfMarker.point.longitude, 5.0)
         val filter = createFilter(categories.flatMap { it.ids })
-        val apiCall = api!!.getPointOfInterestList(spatialFilter, filter, numberOfResults, createSelect(), key, "json")
+        val apiKey = sharedPreferences.getStringPreference(PreferenceEnum.API_KEY)
+        val apiCall = api!!.getPointOfInterestList(spatialFilter, filter, numberOfResults, createSelect(), apiKey, "json")
 
         Log.d("PointOfInterestRestClient", "request: ${apiCall.request()}")
         /*
@@ -53,6 +58,7 @@ class PointOfInterestRestClient @Inject constructor(private val mapView: MapView
                     retrofitEventListener.onSuccess(call, response.body())
                 }
             }
+
             override fun onFailure(call: Call<PointOfInterestResponse>?, t: Throwable?) {
                 /*
                 Error callback
