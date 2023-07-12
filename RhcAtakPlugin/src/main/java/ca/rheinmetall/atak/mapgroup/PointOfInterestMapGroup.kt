@@ -69,7 +69,7 @@ class PointOfInterestMapGroup @Inject constructor(
             val icon = iconset.getIcon(poi.pointOfInterestIcon.imageName)
             oldMarker.apply {
                 point = poi.point
-                type = icon.get2525cType()
+                type = icon.get2525cType() ?: "a-u-G"
                 title = poi.name ?: poi.pointOfInterestIcon.name
                 if (!FileSystemUtils.isEmpty(icon.iconsetPath))
                     setMetaString("IconsetPath", icon.iconsetPath)
