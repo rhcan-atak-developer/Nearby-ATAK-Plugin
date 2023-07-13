@@ -1,6 +1,7 @@
 package ca.rheinmetall.atak.mapgroup
 
 import android.content.Context
+import ca.rheinmetall.atak.PoiMenuFactory
 import ca.rheinmetall.atak.application.PluginOwner
 import ca.rheinmetall.atak.dagger.PluginContext
 import ca.rheinmetall.atak.model.PointOfInterest
@@ -55,6 +56,7 @@ class PointOfInterestMapGroup @Inject constructor(
 
             val marker = Marker(poi.uuid)
             marker.apply {
+                setMetaString("menu_factory_class", PoiMenuFactory::class.java.getSimpleName())
                 type = icon.get2525cType() ?: "a-u-G"
                 if (!FileSystemUtils.isEmpty(icon.iconsetPath))
                     setMetaString("IconsetPath", icon.iconsetPath)
@@ -63,6 +65,7 @@ class PointOfInterestMapGroup @Inject constructor(
                 editable = false
                 point = position
                 setMetaBoolean(POI_KEY, true)
+                setMetaString("POI_PHONE_NUMBER", poi.phoneNumber)
             }
 
             childGroup.addItem(marker)
@@ -77,6 +80,7 @@ class PointOfInterestMapGroup @Inject constructor(
             }
             val iconAdapter = IconsMapAdapter(MapView._mapView.context)
             iconAdapter.adaptMarkerIcon(oldMarker)
+            oldMarker.setMetaString("POI_PHONE_NUMBER", poi.phoneNumber)
         }
     }
 }

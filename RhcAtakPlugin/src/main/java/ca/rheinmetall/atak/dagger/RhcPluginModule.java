@@ -21,9 +21,12 @@ import com.atakmap.android.contact.Contacts;
 import com.atakmap.android.cotdetails.CoTAutoBroadcaster;
 import com.atakmap.android.maps.MapData;
 import com.atakmap.android.maps.MapView;
+import com.atakmap.android.menu.MenuMapAdapter;
+import com.atakmap.android.menu.MenuResourceFactory;
 import com.atakmap.android.preference.UnitPreferences;
 import com.atakmap.coremap.maps.coords.GeoPoint;
 
+import ca.rheinmetall.atak.PluginMapAssets;
 import ca.rheinmetall.atak.application.PluginOwner;
 import ca.rheinmetall.atak.thread.MainThreadScheduledExecutorService;
 import ca.rheinmetall.atak.thread.NamedExecutorFactory;
@@ -56,6 +59,19 @@ public interface RhcPluginModule
     static androidx.fragment.app.FragmentFactory bindIncidentsFragment(final Provider<IncidentsFragment> provider)
     {
         return new DaggerFragmentFactory<>(provider, IncidentsFragment.class);
+    }
+
+    @Provides
+    static public MenuResourceFactory providesMenuResourceFactory(final MapView mapView, final PluginMapAssets pluginMapAssets)
+    {
+    final MenuMapAdapter mapAdapter = new MenuMapAdapter();
+    return new MenuResourceFactory(mapView, mapView.getMapData(), pluginMapAssets, mapAdapter);
+}
+
+    @Provides
+    static public PluginMapAssets providePluginMapAssets(@AtakContext final Context atakContext, @PluginContext final Context pluginContext)
+    {
+        return new PluginMapAssets(atakContext, pluginContext, null);
     }
 
     @Binds

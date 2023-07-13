@@ -7,6 +7,7 @@ import com.atakmap.android.cotdetails.extras.ExtraDetailsManager;
 import com.atakmap.android.dropdown.DropDownMapComponent;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
+import com.atakmap.android.menu.MapMenuReceiver;
 import com.atakmap.android.overlay.DefaultMapGroupOverlay;
 
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.content.Intent;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.rheinmetall.atak.PoiMenuFactory;
 import ca.rheinmetall.atak.R;
 import ca.rheinmetall.atak.application.RhcPluginBroadcastEnum;
 import ca.rheinmetall.atak.mapgroup.PointOfInterestDetails;
@@ -34,13 +36,16 @@ public class RhcPluginMapComponent extends DropDownMapComponent
     private TrafficIncidentDetails _trafficIncidentDetails;
     private final List<DefaultMapGroupOverlay> _overlays = new ArrayList<>();
 
+    private final PoiMenuFactory _poiMenuFactory;
+
     @Inject
     RhcPluginMapComponent(final RhcPluginDropDownReceiver issPluginTesterDropDownReceiver,
                           final PointOfInterestMapGroup pointOfInterestMapGroup,
                           final TrafficIncidentMapGroup trafficIncidentMapGroup,
-                          final SearchResultDropDownReceiver searchResultDropDownReceiver,
                           final PointOfInterestDetails pointOfInterestDetails,
-                          final TrafficIncidentDetails trafficIncidentDetails)
+                          final TrafficIncidentDetails trafficIncidentDetails,
+                          final SearchResultDropDownReceiver searchResultDropDownReceiver,
+                          final PoiMenuFactory poiMenuFactory)
     {
         _issPluginTesterDropDownReceiver = issPluginTesterDropDownReceiver;
         _searchResultDropDownReceiver = searchResultDropDownReceiver;
@@ -48,6 +53,7 @@ public class RhcPluginMapComponent extends DropDownMapComponent
         _trafficIncidentMapGroup = trafficIncidentMapGroup;
         _pointOfInterestDetails = pointOfInterestDetails;
         _trafficIncidentDetails = trafficIncidentDetails;
+        _poiMenuFactory = poiMenuFactory;
     }
 
     @Override
@@ -70,6 +76,8 @@ public class RhcPluginMapComponent extends DropDownMapComponent
         _overlays.forEach(mapView.getMapOverlayManager()::addOverlay);
         ExtraDetailsManager.getInstance().addProvider(_pointOfInterestDetails);
         ExtraDetailsManager.getInstance().addProvider(_trafficIncidentDetails);
+
+        MapMenuReceiver.getInstance().registerMapMenuFactory(_poiMenuFactory);
     }
 
     @Override
@@ -80,6 +88,7 @@ public class RhcPluginMapComponent extends DropDownMapComponent
         _overlays.forEach(mapView.getMapOverlayManager()::removeOverlay);
         unregisterReceiver(context, _issPluginTesterDropDownReceiver);
         unregisterReceiver(context, _searchResultDropDownReceiver);
+        MapMenuReceiver.getInstance().unregisterMapMenuFactory(_poiMenuFactory);
         super.onDestroyImpl(context, mapView);
     }
 }

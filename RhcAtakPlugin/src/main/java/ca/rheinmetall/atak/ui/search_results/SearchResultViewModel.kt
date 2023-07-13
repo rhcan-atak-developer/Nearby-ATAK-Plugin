@@ -52,7 +52,7 @@ class SearchResultViewModel @Inject constructor(
 
     private fun PointOfInterestResult.toPointOfInterestModel(): PointOfInterest? {
         val type = PointOfInterestType.values().firstOrNull { it.ids.contains(this.entityTypeID) }
-        return type?.let { PointOfInterest(this.latitude!!, this.longitude!!, it, this.entityID!!, this.displayName) }
+        return type?.let { PointOfInterest(this.latitude!!, this.longitude!!, it, this.entityID!!, this.displayName, phoneNumber = this.phone) }
     }
 
     fun onDestroyView() {
