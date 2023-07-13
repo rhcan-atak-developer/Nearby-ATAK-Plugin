@@ -28,11 +28,11 @@ class TrafficIncidentMapGroup @Inject constructor(
     init {
         setMetaString("menu_factory_class", "TrafficIncident")
         addOnItemListChangedListener(this)
-        trafficIncidentRepository.trafficIncidents.observe(pluginOwner) {
-            clearItems()
-            currents.clear()
-            markers.clear()
-            it.forEach { incident -> addIncident(incident) }
+        trafficIncidentRepository.trafficIncidents.observe(pluginOwner) { trafficIncidents: List<TrafficIncident>? ->
+            currents.filter { !(trafficIncidents?.contains(it.value) ?: false) }.forEach {
+                removeItem(markers[it.key])
+            }
+            trafficIncidents?.forEach { incident -> addIncident(incident) }
         }
     }
 
@@ -51,8 +51,11 @@ class TrafficIncidentMapGroup @Inject constructor(
                 movable = false
                 editable = false
                 point = position
+                setMetaBoolean(TRAFFIC_INCIDENT_KEY, true)
             }
             marker.setMetaBoolean("neverCot", true)
+            marker.setMetaString("longDescription", trafficIncident.longDescription)
+            trafficIncident.roadIsClosed?.let { marker.setMetaString("roadIsClosed", if (it) "Yes" else "No") }
 
             addItem(marker)
             markers[trafficIncident.uuid] = marker

@@ -19,6 +19,7 @@ import ca.rheinmetall.atak.R;
 import ca.rheinmetall.atak.application.RhcPluginBroadcastEnum;
 import ca.rheinmetall.atak.mapgroup.PointOfInterestDetails;
 import ca.rheinmetall.atak.mapgroup.PointOfInterestMapGroup;
+import ca.rheinmetall.atak.mapgroup.TrafficIncidentDetails;
 import ca.rheinmetall.atak.mapgroup.TrafficIncidentMapGroup;
 import ca.rheinmetall.atak.ui.search_results.SearchResultDropDownReceiver;
 
@@ -30,6 +31,7 @@ public class RhcPluginMapComponent extends DropDownMapComponent
     private final PointOfInterestMapGroup _pointOfInterestMapGroup;
     private final TrafficIncidentMapGroup _trafficIncidentMapGroup;
     private final PointOfInterestDetails _pointOfInterestDetails;
+    private TrafficIncidentDetails _trafficIncidentDetails;
     private final List<DefaultMapGroupOverlay> _overlays = new ArrayList<>();
 
     @Inject
@@ -37,13 +39,15 @@ public class RhcPluginMapComponent extends DropDownMapComponent
                           final PointOfInterestMapGroup pointOfInterestMapGroup,
                           final TrafficIncidentMapGroup trafficIncidentMapGroup,
                           final SearchResultDropDownReceiver searchResultDropDownReceiver,
-                          final PointOfInterestDetails pointOfInterestDetails)
+                          final PointOfInterestDetails pointOfInterestDetails,
+                          final TrafficIncidentDetails trafficIncidentDetails)
     {
         _issPluginTesterDropDownReceiver = issPluginTesterDropDownReceiver;
         _searchResultDropDownReceiver = searchResultDropDownReceiver;
         _pointOfInterestMapGroup = pointOfInterestMapGroup;
         _trafficIncidentMapGroup = trafficIncidentMapGroup;
         _pointOfInterestDetails = pointOfInterestDetails;
+        _trafficIncidentDetails = trafficIncidentDetails;
     }
 
     @Override
@@ -65,12 +69,14 @@ public class RhcPluginMapComponent extends DropDownMapComponent
         _overlays.add(new DefaultMapGroupOverlay(mapView, _trafficIncidentMapGroup, iconUri));
         _overlays.forEach(mapView.getMapOverlayManager()::addOverlay);
         ExtraDetailsManager.getInstance().addProvider(_pointOfInterestDetails);
+        ExtraDetailsManager.getInstance().addProvider(_trafficIncidentDetails);
     }
 
     @Override
     protected void onDestroyImpl(final Context context, final MapView mapView)
     {
         ExtraDetailsManager.getInstance().removeProvider(_pointOfInterestDetails);
+        ExtraDetailsManager.getInstance().removeProvider(_trafficIncidentDetails);
         _overlays.forEach(mapView.getMapOverlayManager()::removeOverlay);
         unregisterReceiver(context, _issPluginTesterDropDownReceiver);
         unregisterReceiver(context, _searchResultDropDownReceiver);

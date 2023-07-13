@@ -93,7 +93,7 @@ class TrafficIncidentRestClient @Inject constructor(
 
     private fun addTrafficIncident(trafficIncidentResult: TrafficIncidentResult) {
         trafficIncidentResult.point?.coordinates?.let {
-            trafficIncidentRepository.addTrafficIncident(TrafficIncident(it[0], it[1], trafficIncidentResult.title, trafficIncidentResult.incidentId, TrafficIncidentType.fromCode(trafficIncidentResult.type!!)))
+            trafficIncidentRepository.addTrafficIncident(TrafficIncident(it[0], it[1], trafficIncidentResult.title, trafficIncidentResult.description, trafficIncidentResult.roadClosed, trafficIncidentResult.incidentId, TrafficIncidentType.fromCode(trafficIncidentResult.type!!)))
         }
     }
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText" >
+
+    <TextView
+            android:id="@+id/description"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="Description"
+            android:textColor="@color/heading_yellow"
+            android:textSize="@dimen/info_view_header_text_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+            android:id="@+id/description_value"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/info_view_value_text_size"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Road work on Main street" />
+
+    <TextView
+            android:id="@+id/road_is_closed"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="Road is closed?"
+            android:textColor="@color/heading_yellow"
+            android:textSize="@dimen/info_view_header_text_size"
+            app:layout_constraintTop_toBottomOf="@id/description_value"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/road_is_closed_value"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/info_view_value_text_size"
+        app:layout_constraintTop_toBottomOf="@id/road_is_closed"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Yes"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
