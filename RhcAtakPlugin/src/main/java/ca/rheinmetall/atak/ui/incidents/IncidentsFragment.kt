@@ -60,7 +60,7 @@ class IncidentsFragment @Inject constructor(
         val type = TrafficIncidentType.values().filter { !it.isHidden }.toTypedArray()
         AlertDialog.Builder(requireContext())
             .setTitle(pluginContext.getString(R.string.select_incident_type))
-            .setSingleChoiceItems(type.map { it.name }.toTypedArray(), viewModel.selectedTrafficIncidentType.value!!.typeCode) { _, i ->
+            .setSingleChoiceItems(type.map { it.name }.toTypedArray(), type.indexOf(viewModel.selectedTrafficIncidentType.value)) { _, i ->
                 viewModel.selectTrafficIncident(type[i])
             }
             .setPositiveButton(pluginContext.getText(R.string.ok)) { _, i -> if(i != -1) viewModel.selectTrafficIncident(type[i])}
