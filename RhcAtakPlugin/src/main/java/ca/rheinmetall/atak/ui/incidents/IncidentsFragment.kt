@@ -30,11 +30,21 @@ class IncidentsFragment @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this, viewModelFactory)[IncidentsViewModel::class.java]
 
+        viewModel.isEnabled.value?.let { binding.selectIncidentTypeBtn.isEnabled = it }
+
         binding.selectIncidentTypeBtn.setOnClickListener { onSelectIncidentType() }
         viewModel.selectedTrafficIncidentType.observe(viewLifecycleOwner) { onSelectedTrafficIncidentChange(it)}
 
         binding.selectSeverityTypeBtn.setOnClickListener { onSelectSeverity() }
         viewModel.selectedSeverity.observe(viewLifecycleOwner) { onSelectedSeverityChanged(it)}
+
+        binding.isIncidentEnabled.setOnCheckedChangeListener{ _, isChecked -> onCheckSelected(isChecked) }
+    }
+
+    private fun onCheckSelected(isChecked: Boolean) {
+        binding.selectIncidentTypeBtn.isEnabled = isChecked
+        binding.selectSeverityTypeBtn.isEnabled = isChecked
+        viewModel.setEnabled(isChecked)
     }
 
     private fun onSelectedSeverityChanged(it: Severity) {

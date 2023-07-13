@@ -16,12 +16,15 @@ class IncidentsViewModel @Inject constructor(
     companion object {
         const val SEVERITY_PREF_KEY = "ca.rheinmetall.atak.SELECTED_SEVERITY"
         const val TRAFFIC_INCIDENT_TYPE_PREF_KEY = "ca.rheinmetall.atak.SELECTED_TRAFFIC_INCIDENT_TYPE"
+        const val INCIDENT_ENABLED_PREF_KEY = "ca.rheinmetall.atak.INCIDENT_ENABLED_PREF_KEY"
     }
 
     private val _selectedSeverity = MutableLiveData<Severity>()
     val selectedSeverity: LiveData<Severity> = _selectedSeverity
     private val _selectedTrafficIncidentType = MutableLiveData<TrafficIncidentType>()
     val selectedTrafficIncidentType: LiveData<TrafficIncidentType> = _selectedTrafficIncidentType
+    private val _enabled = MutableLiveData(false)
+    val isEnabled: LiveData<Boolean> = _enabled
 
     init {
         _selectedSeverity.value = Severity.fromCode(
@@ -36,6 +39,11 @@ class IncidentsViewModel @Inject constructor(
                 TrafficIncidentType.Accident.typeCode
             )
         )
+        _enabled.value = sharedPreferences.getBoolean(INCIDENT_ENABLED_PREF_KEY, false)
+    }
+
+    fun setEnabled(isSelected : Boolean) {
+        sharedPreferences.edit().putBoolean(INCIDENT_ENABLED_PREF_KEY, isSelected).apply()
     }
 
     fun selectSeverity(severity: Severity?) {

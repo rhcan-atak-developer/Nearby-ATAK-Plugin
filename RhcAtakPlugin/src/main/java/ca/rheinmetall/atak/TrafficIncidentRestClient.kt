@@ -57,13 +57,17 @@ class TrafficIncidentRestClient @Inject constructor(
     private var api: TrafficIncidentApi? = null
 
     private fun getTrafficIncidentList() {
+
+        if(!sharedPreferences.getBoolean(IncidentsViewModel.INCIDENT_ENABLED_PREF_KEY, false))
+            return
+
         val retrofit = NetworkClient2.retrofitClient
         api = retrofit.create(TrafficIncidentApi::class.java)
 
         val viewPort = mapViewPortDetector._mapViewPortMutableLiveData.value
         val apiKey = sharedPreferences.getStringPreference(PreferenceEnum.API_KEY)
         val severity = sharedPreferences.getInt(IncidentsViewModel.SEVERITY_PREF_KEY, Severity.Serious.severityCode)
-        var type = sharedPreferences.getInt(IncidentsViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY, TrafficIncidentType.Accident.typeCode)
+        val type = sharedPreferences.getInt(IncidentsViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY, TrafficIncidentType.Accident.typeCode)
         val apiCall = api!!.getTrafficIncidentList(viewPort!!.downRight.lat, viewPort.downRight.lon, viewPort.upperLeft.lat,viewPort.upperLeft.lon, apiKey,
             if (type == TrafficIncidentType.All.typeCode) null else type,
             if (severity == Severity.All.severityCode) null else severity,"json")
@@ -102,7 +106,7 @@ class TrafficIncidentRestClient @Inject constructor(
     }
 
     override fun onSharedPreferenceChanged(p0: SharedPreferences?, key: String?) {
-        if(IncidentsViewModel.SEVERITY_PREF_KEY == key || IncidentsViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY == key)
+        if(IncidentsViewModel.SEVERITY_PREF_KEY == key || IncidentsViewModel.TRAFFIC_INCIDENT_TYPE_PREF_KEY == key || IncidentsViewModel.INCIDENT_ENABLED_PREF_KEY == key)
             getTrafficIncidentList()
     }
 }

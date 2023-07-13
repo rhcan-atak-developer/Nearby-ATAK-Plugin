@@ -67,5 +67,13 @@
         app:layout_constraintTop_toBottomOf="@id/selectSeverityTypeBtn"
         tools:text="Serious" />
 
+    <CheckBox
+        android:id="@+id/is_incident_enabled"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="@string/is_incident_enabled"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectedSeverityHint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
