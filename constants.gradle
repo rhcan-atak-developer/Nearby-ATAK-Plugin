@@ -13,7 +13,6 @@ ext {
     materialVersion = "1.5.0"
     dexMakerMockito = "2.28.1"
 
-    atakSdkVersion = "4.8.1.16-modified"
     daggerVersion = "2.44.2"
     espressoVersion = "3.4.0"
     jUnitVersion = "4.13.2"
@@ -24,9 +23,5 @@ ext {
 
     daggerDependencies = [
         dagger : "com.google.dagger:dagger:$daggerVersion"
-    ]
-
-    atakArtifactoryDependencies = [
-        "com.atakmap.sdk:atak-sdk:${atakSdkVersion}"
     ]
 }
