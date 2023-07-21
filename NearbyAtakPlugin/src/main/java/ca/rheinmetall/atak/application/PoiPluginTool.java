@@ -15,6 +15,6 @@ public class PoiPluginTool extends AbstractPluginTool
               context.getString(R.string.points_of_interest),
               context.getString(R.string.points_of_interest),
               ContextCompat.getDrawable(context, R.drawable.poi_plugin),
-              RhcPluginBroadcastEnum.SHOW_POI_PLUGIN.getAction());
+              NearbyPluginBroadcastEnum.SHOW_POI_PLUGIN.getAction());
     }
 }

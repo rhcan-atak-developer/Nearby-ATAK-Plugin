@@ -32,7 +32,6 @@ import ca.rheinmetall.atak.thread.MainThreadScheduledExecutorService;
 import ca.rheinmetall.atak.thread.NamedExecutorFactory;
 import ca.rheinmetall.atak.ui.PointOfInterestViewModel;
 import ca.rheinmetall.atak.ui.PointOfInterestFragment;
-import ca.rheinmetall.atak.ui.RhcPluginViewModel;
 import ca.rheinmetall.atak.ui.incidents.IncidentsFragment;
 import ca.rheinmetall.atak.ui.incidents.IncidentsViewModel;
 import ca.rheinmetall.atak.ui.search_results.SearchResultFragment;
@@ -43,7 +42,7 @@ import dagger.Provides;
 import dagger.multibindings.IntoMap;
 
 @Module
-public interface RhcPluginModule
+public interface NearbyPluginModule
 {
     @Provides
     @IntoMap
@@ -100,11 +99,6 @@ public interface RhcPluginModule
     @Binds
     @Singleton
     ViewModelProvider.Factory bindViewModelFactory(final ViewModelFactory factory);
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(RhcPluginViewModel.class)
-    ViewModel bindIssNetworkDiagnosisViewModel(final RhcPluginViewModel viewModel);
 
     @Singleton
     @Provides

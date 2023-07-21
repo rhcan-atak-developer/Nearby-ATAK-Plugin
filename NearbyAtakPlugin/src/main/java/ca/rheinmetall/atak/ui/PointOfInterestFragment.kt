@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import ca.rheinmetall.atak.R
 import ca.rheinmetall.atak.dagger.PluginContext
 import ca.rheinmetall.atak.dagger.ViewModelFactory
-import ca.rheinmetall.atak.databinding.RhcPluginFragmentBinding
+import ca.rheinmetall.atak.databinding.PointOfInterestFragmentBinding
 import ca.rheinmetall.atak.model.PointOfInterestType
 import javax.inject.Inject
 
@@ -21,10 +21,10 @@ class PointOfInterestFragment @Inject constructor(
     @PluginContext private val pluginContext: Context,
     private val viewModelFactory: ViewModelFactory
 ) : Fragment() {
-    private lateinit var binding: RhcPluginFragmentBinding
+    private lateinit var binding: PointOfInterestFragmentBinding
     private lateinit var viewModel: PointOfInterestViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = RhcPluginFragmentBinding.inflate(LayoutInflater.from(pluginContext))
+        binding = PointOfInterestFragmentBinding.inflate(LayoutInflater.from(pluginContext))
         return binding.root
     }
 

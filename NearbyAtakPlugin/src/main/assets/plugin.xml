@@ -4,7 +4,7 @@
 
     <extension
         type="gov.tak.api.plugin.IPlugin"
-        impl="ca.rheinmetall.atak.application.RhcPluginLifecycle"
+        impl="ca.rheinmetall.atak.application.NearbyPlugin"
         singleton="true" />
 
     <extension

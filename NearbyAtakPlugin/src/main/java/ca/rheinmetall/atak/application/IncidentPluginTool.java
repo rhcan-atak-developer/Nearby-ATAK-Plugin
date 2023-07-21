@@ -16,6 +16,6 @@ public class IncidentPluginTool extends AbstractPluginTool
               context.getString(R.string.incidents),
               context.getString(R.string.incidents),
               ContextCompat.getDrawable(context, R.drawable.incident_plugin),
-              RhcPluginBroadcastEnum.SHOW_INCIDENTS_PLUGIN.getAction());
+              NearbyPluginBroadcastEnum.SHOW_INCIDENTS_PLUGIN.getAction());
     }
 }

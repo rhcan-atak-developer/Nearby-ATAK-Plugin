@@ -14,15 +14,15 @@ import ca.rheinmetall.atak.R;
 import ca.rheinmetall.atak.TrafficIncidentRestClient;
 import ca.rheinmetall.atak.dagger.DaggerPluginApplicationComponent;
 import ca.rheinmetall.atak.preference.PreferenceFragment;
-import ca.rheinmetall.atak.ui.RhcPluginMapComponent;
+import ca.rheinmetall.atak.ui.NearbyPluginMapComponent;
 import gov.tak.api.plugin.IServiceController;
 
-public class RhcPluginLifecycle extends AbstractPlugin
+public class NearbyPlugin extends AbstractPlugin
 {
-    private static final String TAG = RhcPluginLifecycle.class.getSimpleName();
+    private static final String TAG = NearbyPlugin.class.getSimpleName();
 
     @Inject
-    RhcPluginMapComponent _rhcPluginMapComponent;
+    NearbyPluginMapComponent _nearbyPluginMapComponent;
 
     @Inject
     PreferenceFragment _preferenceFragment;
@@ -30,7 +30,7 @@ public class RhcPluginLifecycle extends AbstractPlugin
     @Inject
     TrafficIncidentRestClient _trafficIncidentRestClient;
 
-    public RhcPluginLifecycle(final IServiceController serviceController)
+    public NearbyPlugin(final IServiceController serviceController)
     {
         super(serviceController);
     }
@@ -38,7 +38,7 @@ public class RhcPluginLifecycle extends AbstractPlugin
     @Override
     protected void init(final Context atakContext, final Context pluginContext, final MapView mapView)
     {
-        Log.d(TAG, "RHC plugin initialization");
+        Log.d(TAG, "Nearby plugin initialization");
 
         DaggerPluginApplicationComponent.builder()
                                         .mapView(mapView)
@@ -48,11 +48,11 @@ public class RhcPluginLifecycle extends AbstractPlugin
                                         .build().inject(this);
 
 
-        addMapComponent(_rhcPluginMapComponent);
+        addMapComponent(_nearbyPluginMapComponent);
         final ToolsPreferenceFragment.ToolPreference pref = new ToolsPreferenceFragment.ToolPreference(
                 pluginContext.getString(R.string.app_name),
                 pluginContext.getString(R.string.app_name),
-                "rhc_app",
+                "nearby_plugin_tool_preference_key",
                 ContextCompat.getDrawable(pluginContext, R.drawable.ic_launcher),
                 _preferenceFragment);
         ToolsPreferenceFragment.register(pref);
@@ -63,6 +63,6 @@ public class RhcPluginLifecycle extends AbstractPlugin
     public void onStop()
     {
         super.onStop();
-        ToolsPreferenceFragment.unregister("rhc_app");
+        ToolsPreferenceFragment.unregister("nearby_plugin_tool_preference_key");
     }
 }

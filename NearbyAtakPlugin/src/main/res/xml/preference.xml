@@ -2,13 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:key="rhc_app">
+    android:key="nearby_plugin_tool_preference_key">
     <com.atakmap.android.gui.PanPreferenceCategory
-        android:title="@string/app_name"
-        android:key="ugv_network_configuration">
+        android:title="@string/app_name">
         <com.atakmap.android.gui.PanEditTextPreference
             android:title="@string/key"
-            android:key="rhc_app_api_key"/>
+            android:key="nearby_plugin_bing_maps_api_key"/>
 
     </com.atakmap.android.gui.PanPreferenceCategory>
 </PreferenceScreen>

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import ca.rheinmetall.atak.application.RhcPluginBroadcastEnum
+import ca.rheinmetall.atak.application.NearbyPluginBroadcastEnum
 import ca.rheinmetall.atak.json.PointOfInterestResult
 import ca.rheinmetall.atak.json.SearchResultsRepository
 import ca.rheinmetall.atak.model.PointOfInterest
@@ -41,12 +41,12 @@ class SearchResultViewModel @Inject constructor(
 
     fun addAllResult() {
         pointOfInterestRepository.addPointOfInterests(_results.value?.mapNotNull { it.result.toPointOfInterestModel() } ?: emptyList())
-        AtakBroadcast.getInstance().sendBroadcast(RhcPluginBroadcastEnum.CLOSE_SEARCH_RESULTS.createIntent())
+        AtakBroadcast.getInstance().sendBroadcast(NearbyPluginBroadcastEnum.CLOSE_SEARCH_RESULTS.createIntent())
     }
 
     fun addSelectedResult() {
         pointOfInterestRepository.addPointOfInterests(_results.value?.filter { it.selected }?.mapNotNull { it.result.toPointOfInterestModel() } ?: emptyList())
-        AtakBroadcast.getInstance().sendBroadcast(RhcPluginBroadcastEnum.CLOSE_SEARCH_RESULTS.createIntent())
+        AtakBroadcast.getInstance().sendBroadcast(NearbyPluginBroadcastEnum.CLOSE_SEARCH_RESULTS.createIntent())
     }
 
 

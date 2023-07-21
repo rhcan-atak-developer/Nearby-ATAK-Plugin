@@ -2,7 +2,7 @@ package ca.rheinmetall.atak.application;
 
 import ca.rheinmetall.atak.broadcast.Broadcast;
 
-public enum RhcPluginBroadcastEnum implements Broadcast
+public enum NearbyPluginBroadcastEnum implements Broadcast
 {
     SHOW_POI_PLUGIN("ca.rheinmetall.atak.applicatio.SHOW_POI_PLUGIN"),
     SHOW_INCIDENTS_PLUGIN("ca.rheinmetall.atak.applicatio.SHOW_INCIDENTS_PLUGIN"),
@@ -11,7 +11,7 @@ public enum RhcPluginBroadcastEnum implements Broadcast
 
     private final String _action;
 
-    RhcPluginBroadcastEnum(final String action)
+    NearbyPluginBroadcastEnum(final String action)
     {
         _action = action;
     }

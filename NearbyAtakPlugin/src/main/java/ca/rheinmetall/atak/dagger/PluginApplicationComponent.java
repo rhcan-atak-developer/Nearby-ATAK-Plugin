@@ -2,12 +2,12 @@ package ca.rheinmetall.atak.dagger;
 
 import javax.inject.Singleton;
 
-import ca.rheinmetall.atak.application.RhcPluginLifecycle;
+import ca.rheinmetall.atak.application.NearbyPlugin;
 import dagger.Component;
 
 @Singleton
 @Component(modules = {
-    RhcPluginModule.class
+    NearbyPluginModule.class
 })
 public interface PluginApplicationComponent extends ApplicationComponent
 {
@@ -16,5 +16,5 @@ public interface PluginApplicationComponent extends ApplicationComponent
     {
     }
 
-    void inject(RhcPluginLifecycle pluginLifecycle);
+    void inject(NearbyPlugin pluginLifecycle);
 }

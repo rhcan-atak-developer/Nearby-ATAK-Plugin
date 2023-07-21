@@ -8,9 +8,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import ca.rheinmetall.atak.PointOfInterestRestClient
 import ca.rheinmetall.atak.RetrofitEventListener
-import ca.rheinmetall.atak.Severity
-import ca.rheinmetall.atak.application.RhcPluginBroadcastEnum
-import ca.rheinmetall.atak.TrafficIncidentType
+import ca.rheinmetall.atak.application.NearbyPluginBroadcastEnum
 import ca.rheinmetall.atak.dagger.DefaultSharedPreferences
 import ca.rheinmetall.atak.json.PointOfInterestResponse
 import ca.rheinmetall.atak.json.PointOfInterestResult
@@ -56,7 +54,7 @@ class PointOfInterestViewModel @Inject constructor(
             override fun onSuccess(call: Call<*>, response: Any) {
                 if (response is PointOfInterestResponse) {
                     researchResultsRepository.setResults(response.pointOfInterestResponseData?.results ?: emptyList())
-                    AtakBroadcast.getInstance().sendBroadcast(RhcPluginBroadcastEnum.SHOW_SEARCH_RESULTS.createIntent())
+                    AtakBroadcast.getInstance().sendBroadcast(NearbyPluginBroadcastEnum.SHOW_SEARCH_RESULTS.createIntent())
                 }
             }
 
