@@ -23,6 +23,7 @@ buildscript {
         if(isDevKitEnabled()) {
             classpath "com.atakmap.gradle:atak-gradle-takdev:${takdevVersion}"
         }
+        classpath 'com.jaredsburrows:gradle-license-plugin:0.9.3'
     }
 }
 
