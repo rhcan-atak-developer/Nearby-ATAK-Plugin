@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_margin">8dp</dimen>
+    <dimen name="fontSize">14sp</dimen>
+    <dimen name="fontSizeHeading">18sp</dimen>
+
+    <dimen name="buttonInsetBottom">24dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="default_padding">10dp</dimen>
+    <dimen name="x_small_padding">4dp</dimen>
+    <dimen name="author_icon_size">24dp</dimen>
+    <dimen name="draper_font">10sp</dimen>
+    <dimen name="large_margin">16dp</dimen>
+    <dimen name="dropdown_bottom_bar_height">40dp</dimen>
+    <dimen name="iss_report_button_height">36dp</dimen>
+    <dimen name="iss_report_button_width">145dp</dimen>
+    <dimen name="buttons_list_spacer_height">24dp</dimen>
+    <dimen name="auto_space_big">4dp</dimen>
+    <dimen name="report_edit_text_default_length">192dp</dimen>
+    <dimen name="report_edit_text_default_height">52dp</dimen>
+
+    <!-- Standard dimens for the angle picker wheel -->
+    <dimen name="wheel_radius">124dp</dimen>
+    <dimen name="wheel_thickness">8dp</dimen>
+    <dimen name="reference_wheel_thickness">24dp</dimen>
+    <dimen name="major_wheel_thickness">16dp</dimen>
+    <dimen name="minor_wheel_thickness">8dp</dimen>
+    <dimen name="center_halo_radius">60dp</dimen>
+    <dimen name="center_radius">124dp</dimen>
+    <dimen name="pointer_halo_radius">18dp</dimen>
+    <dimen name="pointer_radius">14dp</dimen>
+    <dimen name="rename_entity_padding">10dp</dimen>
+</resources>

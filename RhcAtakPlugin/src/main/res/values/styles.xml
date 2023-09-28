@@ -1,0 +1,293 @@
+<resources>
+    <!-- Application theme. -->
+    <style name="ATAKPluginTheme" parent="@android:style/Theme.Holo">
+        <item name="android:buttonStyle">@android:style/Widget.Button</item>
+        <item name="android:imageButtonStyle">@android:style/Widget.Button</item>
+        <item name="android:buttonStyleToggle">@android:style/Widget.Button</item>
+        <item name="android:spinnerStyle">@style/ATAKSpinner</item>
+        <item name="android:spinnerItemStyle">@style/ATAKSpinnerItem</item>
+        <item name="android:editTextStyle">@style/ATAKEditText</item>
+    </style>
+
+    <declare-styleable name="AnglePickerWidget">
+        <attr name="wheel_radius" format="dimension" />
+        <attr name="wheel_thickness" format="dimension" />
+        <attr name="reference_wheel_thickness" format="dimension" />
+        <attr name="major_wheel_thickness" format="dimension" />
+        <attr name="minor_wheel_thickness" format="dimension" />
+        <attr name="center_radius" format="dimension" />
+        <attr name="center_halo_radius" format="dimension" />
+        <attr name="pointer_radius" format="dimension" />
+        <attr name="pointer_halo_radius" format="dimension" />
+    </declare-styleable>
+
+    <style name="ATAKTheme" parent="@android:style/Theme.Holo">
+
+        <!--
+            Revert to old theme's buttons and spinner styles, since they match the colors and sizes
+            we use currently in the toolbar and in dropdowns better.
+            (And because we have to use dialog mode spinners in dropdowns or they crash ATM)
+        -->
+        <item name="android:buttonStyle">@android:style/Widget.Button</item>
+        <item name="android:imageButtonStyle">@android:style/Widget.Button</item>
+        <item name="android:buttonStyleToggle">@android:style/Widget.Button</item>
+        <item name="android:spinnerStyle">@style/ATAKSpinner</item>
+        <item name="android:spinnerItemStyle">@style/ATAKSpinnerItem</item>
+
+        <item name="android:editTextStyle">@style/ATAKEditText</item>
+
+        <!--
+              Use new widgets in dialogs though, since they match better there
+               ISSUE: this doesn't work! apparently android just pulls out a limited set of attributes from
+               these themes/styles, it does *NOT* actually apply them. so we can't change button/spinner style from
+               them. We'll just stick with the old ones in dialogs too for now.
+        -->
+        <!--
+              <item name="android:alertDialogTheme">@style/ATAKDialog</item>
+         <item name="android:alertDialogStyle">@style/ATAKDialog</item>
+        -->
+    </style>
+
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="@android:style/Theme.Holo">
+        <item name="android:buttonStyle">@android:style/Widget.Button</item>
+        <item name="android:imageButtonStyle">@android:style/Widget.Button</item>
+        <item name="android:buttonStyleToggle">@android:style/Widget.Button</item>
+        <item name="android:spinnerStyle">@style/ATAKSpinner</item>
+        <item name="android:spinnerItemStyle">@style/ATAKSpinnerItem</item>
+        <item name="android:editTextStyle">@style/ATAKEditText</item>
+    </style>
+
+
+    <style name="ATAKSpinner" parent="@android:style/Widget.Spinner">
+        <item name="android:spinnerMode">dialog</item>
+    </style>
+
+    <style name="ATAKEditText" parent="@android:style/Widget.EditText">
+        <!-- Default to non-multi-line edit texts? Probably should do this field-by-field, but we've missed a LOT of them!  -->
+        <!-- <item name="inputType">text</item> -->
+
+        <!-- Make all text fields use the non-fullscreen keyboard. -->
+        <item name="android:imeOptions">flagNoFullscreen</item>
+    </style>
+
+    <!-- ====== Style for use in 9-line and other dropdowns that have very restricted space. ====== -->
+    <style name="FullDropdownStyle" parent="@style/ATAKTheme">
+        <item name="android:buttonStyle">@style/unpaddedButton</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:imeOptions">flagNoExtractUi</item>
+    </style>
+
+
+    <!-- In the new theme, sometimes the spinner text color is turning white. -->
+    <style name="ATAKSpinnerItem" parent="@style/AppTheme">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="unpaddedButton" parent="@android:style/Widget.Button">
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textSize">@dimen/fontSize</item>
+    </style>
+
+
+    <!-- ==== Style for ISRV Dark Buttons ==== -->
+    <style name="darkButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_gray</item>
+        <item name="android:shadowColor">@color/darker_gray</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textSize">@dimen/fontSize</item>
+    </style>
+
+    <style name="detailsdarkButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_details</item>
+        <item name="android:shadowColor">@color/darker_gray</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textSize">@dimen/fontSize</item>
+    </style>
+
+    <style name="listItem">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/default_text_color</item>
+    </style>
+
+    <style name="dataLogListItem" parent="listItem">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="contactListItemName">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="listItemDescriptionBig">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/default_text_color</item>
+    </style>
+
+    <style name="listItemDescription">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/default_text_color</item>
+    </style>
+
+    <style name="listHeader">
+        <item name="android:layout_height">34dp</item>
+        <item name="android:background">@color/MediumGray</item>
+    </style>
+
+    <style name="listHeaderText">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">@color/default_text_color</item>
+    </style>
+
+    <style name="pluginConfigFragment">
+        <item name="android:background">@color/Black</item>
+    </style>
+
+    <style name="titleBase">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/default_text_color</item>
+    </style>
+
+    <style name="titleBase.MainTitle">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="titleBase.SecondaryTitle">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="titleBase.Subtitle">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="label">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/default_text_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="whiteEditText" parent="ATAKEditText">
+        <item name="android:padding">4dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="whiteEditText.SingleLine" parent="whiteEditText">
+        <item name="android:inputType">textNoSuggestions</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="whiteEditText.multiline" parent="whiteEditText">
+        <item name="android:gravity">top</item>
+    </style>
+
+    <style name="number" parent="whiteEditText">
+        <item name="android:gravity">right</item>
+    </style>
+
+    <style name="whiteSpinner" parent="@android:style/Widget.Spinner">
+        <item name="android:padding">4dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:background">@drawable/color_rectangle</item>
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+
+    <style name="whiteSpinnerItem">
+        <item name="android:padding">4dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="defaultButtonRippleStyle" parent="Theme.MaterialComponents">
+        <item name="colorControlHighlight">@color/ripple_effect_color</item>
+    </style>
+
+    <style name="greenButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_green</item>
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="colorButton" parent="">
+        <item name="android:background">@drawable/color_rectangle</item>
+    </style>
+
+    <style name="invisibleButton" parent="">
+        <item name="android:background">@drawable/invisible_rectangle</item>
+    </style>
+
+    <style name="settingsPanel">
+        <item name="android:background">@drawable/settings_background</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <style name="IssSwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color -->
+        <item name="colorControlActivated">@color/active_button_color</item>
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/white</item>
+        <!-- inactive track color -->
+        <item name="android:colorForeground">@color/inactive</item>
+    </style>
+
+    <style name="roundedFieldMultiLines">
+        <item name="android:layout_width">@dimen/report_edit_text_default_length</item>
+        <item name="android:layout_height">@dimen/report_edit_text_default_height</item>
+        <item name="android:inputType">textMultiLine|textNoSuggestions</item>
+        <item name="maxLines">20</item>
+        <item name="android:background">@drawable/color_rectangle</item>
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">@dimen/x_small_padding</item>
+        <item name="android:paddingStart">@dimen/x_small_padding</item>
+        <item name="android:overScrollMode">always</item>
+        <item name="android:scrollbarStyle">insideInset</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="singleLine">false</item>
+        <item name="android:gravity">center_vertical|start</item>
+    </style>
+
+    <style name="roundedField">
+        <item name="android:inputType">textNoSuggestions</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@drawable/color_rectangle</item>
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">@dimen/x_small_padding</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+</resources>

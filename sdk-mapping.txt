@@ -1,0 +1,41 @@
+-keep class android.support.** { *; }
+
+-keep class androidx.** { *; }
+
+-keep class com.atak.** { *; }
+-keep class com.atakmap.** { *; }
+-keep class com.ekito.** { *; }
+-keep class com.foxykeep.** { *; }
+-keep class com.healthmarketscience.** { *; }
+-keep class com.hoho.** { *; }
+-keep class com.isrv.** { *; }
+-keep class com.partech.** { *; }
+
+-keep class gdal.data.** { *; }
+
+-keep class gnu.nmea.** { *; }
+
+-keep class gov.nist.** { *; }
+
+-keep class jassimp.** { *; }
+
+-keep class opencsv.** { *; }
+
+-keep class org.achartengine.** { *; }
+-keep class org.acra.** { *; }
+-keep class org.apache.** { *; }
+-keep class org.gdal.** { *; }
+-keep class org.json.** { *; }
+-keep class org.simpleframework.** { *; }
+
+-keep class plugins.core.** { *; }
+-keep class plugins.host.** { *; }
+
+-keep class test.androidopennmea.** { *; }
+-keep class test.androidserial.** { *; }
+
+-keep class transapps.geom.** { *; }
+-keep class transapps.mapi.** { *; }
+-keep class transapps.maps.** { *; }
+
+-keep class gov.tak.** { *; }

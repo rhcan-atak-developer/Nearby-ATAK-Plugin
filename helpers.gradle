@@ -1,0 +1,32 @@
+ext.getValueFromPropertiesFile = { propFile, key ->
+    if(!propFile.isFile() || !propFile.canRead())
+        return null
+    def prop = new Properties()
+    def reader = propFile.newReader()
+    try {
+        prop.load(reader)
+    } finally {
+        reader.close()
+    }
+    return prop.get(key)
+}
+
+def getProperty = { name, defValue ->
+    def prop = project.properties[name] ?:
+       getValueFromPropertiesFile(project.rootProject.file('local.properties'), name)
+    return (null == prop) ? defValue : prop
+}
+
+ext {
+    takdevVersion = '2.3.1'
+
+    def urlKey = 'takrepo.url'
+    takrepoUrl = getProperty(urlKey, 'http://localhost/')
+    takrepoUser = getProperty('takrepo.user', 'invalid')
+    takrepoPassword = getProperty('takrepo.password', 'invalid')
+    takdevPlugin = getProperty('takdev.plugin', "${rootDir}/libs/atak-gradle-takdev-${takdevVersion}.jar")
+
+    isDevKitEnabled = { ->
+        return getProperty(urlKey, null) != null
+    }
+}

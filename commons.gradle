@@ -1,0 +1,155 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// PLUGIN_VERSION is the common version name when describing the plugin.
+// ATAK_VERSION   is for the version of ATAK this plugin should be compatible
+//                with some examples include 3.11.0, 3.11.0.civ 3.11.1.fvey
+//
+////////////////////////////////////////////////////////////////////////////////
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+apply from: "$rootDir/constants.gradle"
+
+buildscript {
+    apply from: "$rootDir/helpers.gradle"
+}
+
+android {
+
+    compileSdk 31
+    buildToolsVersion "30.0.3"
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    signingConfigs {
+        debug {
+            def kf = getValueFromPropertiesFile(project.rootProject.file('local.properties'), 'takDebugKeyFile')
+            def kfp = getValueFromPropertiesFile(project.rootProject.file('local.properties'), 'takDebugKeyFilePassword')
+            def ka = getValueFromPropertiesFile(project.rootProject.file('local.properties'), 'takDebugKeyAlias')
+            def kp = getValueFromPropertiesFile(project.rootProject.file('local.properties'), 'takDebugKeyPassword')
+
+            if (kf == null) {
+                kf = getValueFromPropertiesFile(project.rootProject.file('gradle.properties'), 'takDebugKeyFile')
+                kfp = getValueFromPropertiesFile(project.rootProject.file('gradle.properties'), 'takDebugKeyFilePassword')
+                ka = getValueFromPropertiesFile(project.rootProject.file('gradle.properties'), 'takDebugKeyAlias')
+                kp = getValueFromPropertiesFile(project.rootProject.file('gradle.properties'), 'takDebugKeyPassword')
+            }
+
+            if (kf == null) {
+                throw new GradleException("No signing key configured!")
+            }
+
+            storeFile file(kf)
+            if (kfp != null) storePassword kfp
+            if (ka != null) keyAlias ka
+            if (kp != null) keyPassword kp
+        }
+        release {
+            def kf = getValueFromPropertiesFile(project.rootProject.file('local.properties'), 'takReleaseKeyFile')
+            def kfp = getValueFromPropertiesFile(project.rootProject.file('local.properties'), 'takReleaseKeyFilePassword')
+            def ka = getValueFromPropertiesFile(project.rootProject.file('local.properties'), 'takReleaseKeyAlias')
+            def kp = getValueFromPropertiesFile(project.rootProject.file('local.properties'), 'takReleaseKeyPassword')
+
+            if (kf == null) {
+                kf = getValueFromPropertiesFile(project.rootProject.file('gradle.properties'), 'takDebugKeyFile')
+                kfp = getValueFromPropertiesFile(project.rootProject.file('gradle.properties'), 'takDebugKeyFilePassword')
+                ka = getValueFromPropertiesFile(project.rootProject.file('gradle.properties'), 'takDebugKeyAlias')
+                kp = getValueFromPropertiesFile(project.rootProject.file('gradle.properties'), 'takDebugKeyPassword')
+            }
+
+            if (kf == null) {
+                throw new GradleException("No signing key configured!")
+            }
+
+            storeFile file(kf)
+            if (kfp != null) storePassword kfp
+            if (ka != null) keyAlias ka
+            if (kp != null) keyPassword kp
+        }
+    }
+
+    buildTypes {
+        debug {
+            matchingFallbacks = ['sdk']
+        }
+
+        release {
+            minifyEnabled = true
+            if (isDevKitEnabled())
+            {
+                proguardFiles '../tak-mapping.txt', '../proguard-commons.txt', 'proguard-gradle.txt'
+            }
+            else
+            {
+                proguardFiles '../sdk-mapping.txt', '../proguard-commons.txt', 'proguard-gradle.txt'
+            }
+            signingConfig signingConfigs.release
+            matchingFallbacks = ['sdk']
+        }
+    }
+
+    flavorDimensions "application"
+
+    productFlavors {
+        civ {
+            getIsDefault().set(true)
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".CIV"]
+        }
+    }
+
+    packagingOptions {
+        jniLibs.useLegacyPackaging true
+
+        resources {
+            excludes += ['META-INF/DEPENDENCIES', 'META-INF/INDEX.LIST', 'META-INF/COPYING', 'META-INF/COPYING.LESSER', 'versions.properties', 'META-INF/androidx.*.version', 'DebugProbesKt.bin', 'META-INF/kotlinx_coroutines_core.version', 'META-INF/kotlinx_coroutines_android.version']
+        }
+    }
+
+    sourceSets {
+        main {
+            if (isDevKitEnabled()) {
+                setProperty("archivesBaseName", "ATAK-Plugin-" + rootProject.name + "-" + PLUGIN_VERSION + "-" + getVersionName() + "-" + ATAK_VERSION)
+                defaultConfig.versionCode = getVersionCode()
+                defaultConfig.versionName = PLUGIN_VERSION + " (" + getVersionName() + ") - [" + ATAK_VERSION + "]"
+            } else {
+                setProperty("archivesBaseName", "ATAK-Plugin-" + rootProject.name + "-" + PLUGIN_VERSION + "-local-" + ATAK_VERSION)
+                defaultConfig.versionCode = 1
+                defaultConfig.versionName = PLUGIN_VERSION + " (local) - [" + ATAK_VERSION + "]"
+            }
+        }
+
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+
+    defaultConfig {
+        minSdkVersion 26
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86"
+        }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+            all {
+                jvmArgs '-noverify'
+            }
+        }
+    }
+}

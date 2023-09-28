@@ -1,0 +1,1 @@
+-applymapping <atak.proguard.mapping>

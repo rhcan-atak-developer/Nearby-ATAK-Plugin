@@ -1,0 +1,27 @@
+configurations.all {
+    // Uncomment next line if we are having issue getting the latest version of maven snapshot dependencies
+    // resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    exclude group:"androidx.activity", module:"activity"
+    exclude group:"androidx.annotation", module:"annotation"
+    exclude group:"androidx.annotation", module:"annotation-experimental"
+    exclude group:"androidx.arch.core", module:"core-runtime"
+    exclude group:"androidx.arch.core", module:"core-common"
+    exclude group:"androidx.collection", module:"collection"
+    exclude group:"androidx.core", module:"core"
+    exclude group:"androidx.core", module:"core-ktx"
+    exclude group:"androidx.customview", module:"customview"
+    exclude group:"androidx.fragment", module:"fragment"
+    exclude group:"androidx.lifecycle", module:"lifecycle-common"
+    exclude group:"androidx.lifecycle", module:"lifecycle-livedata"
+    exclude group:"androidx.lifecycle", module:"lifecycle-livedata-core"
+    exclude group:"androidx.lifecycle", module:"lifecycle-runtime"
+    exclude group:"androidx.lifecycle", module:"lifecycle-viewmodel"
+    exclude group:"androidx.lifecycle", module:"lifecycle-viewmodel-ktx"
+    exclude group:"androidx.lifecycle", module:"lifecycle-viewmodel-savedstate"
+    exclude group:"androidx.savedstate", module:"savedstate"
+    exclude group:"androidx.loader", module:"loader"
+    exclude group:"androidx.localbroadcastmanager", module:"localbroadcastmanager"
+    exclude group:"androidx.viewpager", module:"viewpager"
+    exclude group:"commons-lang", module:"commons-lang"
+    exclude group:"org.simpleframework", module:"simple-xml"
+}

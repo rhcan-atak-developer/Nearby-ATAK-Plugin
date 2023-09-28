@@ -1,0 +1,28 @@
+dependencies {
+    /*** runtime dependencies ***/
+    implementation fileTree(include: '*.jar', dir: "$rootDir/libs")
+
+    implementation daggerDependencies.values()
+    implementation "androidx.recyclerview:recyclerview:${androidxRecyclerView}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.google.android.material:material:${materialVersion}"
+
+    /*** test dependencies ***/
+    testImplementation "junit:junit:${jUnitVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.mockito:mockito-inline:${mockitoVersion}"
+    testImplementation "org.robolectric:robolectric:${roboelectricVersion}"
+    testImplementation "androidx.arch.core:core-testing:${androidxArch}"
+    testImplementation "androidx.test.ext:junit:${androidxTestExtJUnitVersion}"
+    testImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    testImplementation "androidx.room:room-testing:$androidxRoom"
+
+    androidTestImplementation "androidx.test.ext:junit:${androidxTestExtJUnitVersion}"
+    androidTestImplementation "androidx.test:core:${androidxTestVersion}"
+    androidTestImplementation "androidx.test:runner:${androidxTestVersion}"
+    androidTestImplementation "androidx.test:rules:${androidxTestVersion}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:${androidxArch}"
+
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+}

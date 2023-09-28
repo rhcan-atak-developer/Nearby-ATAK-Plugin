@@ -1,0 +1,19 @@
+apply plugin: 'com.android.application'
+if (isDevKitEnabled())
+{
+    apply plugin: 'atak-takdev-plugin'
+}
+
+apply from: "$rootDir/commons.gradle"
+apply from: "$rootDir/exclusions.gradle"
+apply from: "$rootDir/atak-dependencies.gradle"
+
+android {
+    namespace 'ca.rheinmetall.atak'
+}
+
+dependencies {
+    /*** project dependencies ***/
+
+    implementation "androidx.constraintlayout:constraintlayout:${androidxConstraintlayout}"
+}

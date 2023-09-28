@@ -1,0 +1,55 @@
+buildscript {
+    apply from: "$rootDir/helpers.gradle"
+
+    ext.kotlin_version = '1.8.21'
+    repositories {
+        if ('true' != System.properties['build.disable_maven_local']) {
+            mavenLocal()
+        }
+        if(isDevKitEnabled()) {
+            maven {
+                url = takrepoUrl
+                credentials {
+                    username = takrepoUser
+                    password = takrepoPassword
+                }
+            }
+        }
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        if(isDevKitEnabled()) {
+            classpath "com.atakmap.gradle:atak-gradle-takdev:${takdevVersion}"
+        }
+    }
+}
+
+plugins {
+    id "org.sonarqube" version "2.7"
+}
+
+allprojects {
+    repositories {
+        if ('true' != System.properties['build.disable_maven_local']) {
+            mavenLocal()
+        }
+        google()
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply from: "$rootDir/constants.gradle"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
